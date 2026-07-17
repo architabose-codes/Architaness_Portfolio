@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Barion Smart Gateway — Archita Bose</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&family=Sorts+Mill+Goudy:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <main class="cs-page">
+
+    <!-- Top bar: back + section tabs -->
+    <div class="cs-topbar">
+      <div class="cs-topbar__inner">
+        <a href="/" class="cs-back" aria-label="Back to all work">
+          <img src="assets/arrow.svg" alt="←" style="transform: rotate(180deg);" />
+        </a>
+        <nav class="cs-tabs" id="csTabs">
+          <span class="nav__highlight" id="csTabsHighlight" aria-hidden="true"></span>
+          <a href="#summary" class="is-active">
+            <svg class="cs-tabs__dots" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="5" cy="12" r="2" fill="currentColor"/>
+              <circle cx="12" cy="12" r="2" fill="currentColor"/>
+              <circle cx="19" cy="12" r="2" fill="currentColor"/>
+            </svg>
+            <span class="cs-tabs__label">Summary</span>
+          </a>
+          <a href="#problem">Problem</a>
+          <a href="#process">Process</a>
+          <a href="#solution">Solution</a>
+          <a href="#outcome">Outcome</a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Head: icon, title, subtitle + meta strip -->
+    <div class="cs-head">
+      <div class="cs-head__icon">
+        <img src="assets/proj/barion-mark.svg" alt="Barion" />
+      </div>
+      <div class="cs-head__text">
+        <h1 class="cs-head__title">Barion Smart Gateway</h1>
+        <p class="cs-head__sub">A full product refresh of Barion's core payment gateway redesigning the end-to-end experience for merchants and consumers across Europe, at scale.</p>
+      </div>
+      <div class="cs-meta">
+        <span class="cs-meta__pill"><img src="assets/proj/live-dot.svg" alt="" />Live</span>
+        <span class="cs-meta__item">Product Designer</span>
+        <span class="cs-meta__item">3 months (2024)</span>
+        <span class="cs-meta__item">Barion Payment Inc.</span>
+        <span class="cs-meta__item">Web (Responsive)</span>
+        <a href="https://demo-merchant.shop/en/DemoClub/Pay" target="_blank" rel="noopener" class="cs-meta__chip">
+          <span class="cs-meta__chip-icon"><img src="assets/proj/barion-mark.svg" alt="" /></span>
+          Barion demo gateway
+        </a>
+      </div>
+    </div>
+
+    <!-- Hero image -->
+    <div class="cs-hero" style="width: 800px; height: auto;">
+      <img src="assets/proj/barion-gateway/final-ui.png" alt="Barion Smart Gateway redesign" style="height: auto;" />
+    </div>
+
+    <!-- Summary -->
+    <section class="cs-section cs-section--wide" id="summary">
+      <h2 class="cs-section__heading">Summary</h2>
+      <div class="cs-lead">
+        <p>Barion Smart Gateway is Barion's payment product, powering checkouts for 18&thinsp;000+ shops including brands like Yettel and O2.<br />I helped redesign the 15-year-old checkout experience to make payments faster, clearer, and more aligned with Barion's evolving design system.</p>
+        <div>
+          <p>I was responsible for:</p>
+          <ul>
+            <li>A full UX/UI redesign across the core payment flow, while keeping the existing journey and accordion structure intact.</li>
+            <li>The redesign of <strong>key payment states</strong>, including card entry, alternative payment methods, success screens, and error handling.</li>
+            <li>A cleaner payment experience that <strong>surfaced Apple Pay and Google Pay</strong> above the fold and reduced visual clutter.</li>
+            <li>Merchant-facing customisation improvements, including background colour, button colour, logo placement, rounded UI styling, and <strong>dark mode</strong>.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="cs-stats">
+        <div class="cs-stat">
+          <span class="cs-stat__num">94% CSAT</span>
+          <span class="cs-stat__label">Customer satisfaction score</span>
+        </div>
+        <div class="cs-stat">
+          <span class="cs-stat__num">0.5s faster</span>
+          <span class="cs-stat__label">Avg. session duration reduced</span>
+        </div>
+        <div class="cs-stat">
+          <span class="cs-stat__num">20 000 +</span>
+          <span class="cs-stat__label">Shops served</span>
+        </div>
+        <div class="cs-stat">
+          <span class="cs-stat__num">millions</span>
+          <span class="cs-stat__label">Of payments processed</span>
+        </div>
+        <div class="cs-stat">
+          <span class="cs-stat__num">Live</span>
+          <span class="cs-stat__label">In production</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="cs-img" style="max-width: 716px;">
+      <img src="assets/proj/barion-gateway/success-screen.png" alt="Barion gateway success screen" />
+    </div>
+
+    <!-- Problem -->
+    <section class="cs-section" id="problem">
+      <h2 class="cs-section__heading">Problem</h2>
+      <div class="cs-grid">
+        <div class="cs-card">
+          <p class="cs-card__title">Poor mobile UX</p>
+          <p class="cs-card__text">The checkout experience was falling behind competitors where most transactions happened.</p>
+        </div>
+        <div class="cs-card">
+          <p class="cs-card__title">Hidden payment options</p>
+          <p class="cs-card__text">Alternatives like Google Pay were buried below the fold and easy to miss.</p>
+        </div>
+        <div class="cs-card">
+          <p class="cs-card__title">Fragmented interface</p>
+          <p class="cs-card__text">Inconsistent visual treatments made the product feel disjointed.</p>
+        </div>
+        <div class="cs-card">
+          <p class="cs-card__title">High cognitive load</p>
+          <p class="cs-card__text">UI clutter slowed users down and made the payment flow feel heavier.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="cs-img" style="max-width: 600px;">
+      <img src="assets/proj/barion-gateway/old-ui.png" alt="Old Barion gateway UI" />
+    </div>
+
+    <!-- Process -->
+    <section class="cs-section" id="process">
+      <h2 class="cs-section__heading">Process</h2>
+      <ol start="1">
+        <li>Conducted a heuristic analysis identifying three core issue categories: hidden payment options, visual inconsistencies, and interface clutter.</li>
+      </ol>
+    </section>
+
+    <div class="cs-img" style="max-width: 520px;">
+      <img src="assets/proj/barion-gateway/research.png" alt="Heuristic analysis research" />
+    </div>
+
+    <section class="cs-section">
+      <ol start="2">
+        <li>Gathered customer and merchant feedback — users didn't know Google Pay was available; merchants wanted basic brand customisation without requiring Barion's development resources.</li>
+      </ol>
+    </section>
+
+    <div class="cs-img" style="max-width: 536px;">
+      <img src="assets/proj/barion-gateway/feedback.png" alt="Customer and merchant feedback" />
+    </div>
+
+    <section class="cs-section">
+      <ol start="3">
+        <li>Worked within defined constraints: retain the accordion menu format and existing user journey while solving immediate UX issues.</li>
+      </ol>
+      <ol start="4">
+        <li>Evaluated wireframe options before committing to a direction that minimised layout disruption.</li>
+      </ol>
+    </section>
+
+    <div class="cs-img" style="max-width: 681px;">
+      <img src="assets/proj/barion-gateway/wireframes.png" alt="Wireframe explorations" />
+    </div>
+
+    <!-- Solution -->
+    <section class="cs-section" id="solution">
+      <h2 class="cs-section__heading">Solution</h2>
+      <div class="cs-blocks">
+
+        <div class="cs-block">
+          <div class="cs-block__text">
+            <p class="cs-block__statement">Surfaced Apple Pay and Google Pay immediately at the top of the payment form, before card entry fields.</p>
+            <p class="cs-block__support">This contributed to the greatest difference in our reduced session duration.</p>
+          </div>
+          <img src="assets/proj/barion-gateway/final-ui.png" alt="Final UI with Apple Pay and Google Pay surfaced" />
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-block__text">
+            <p class="cs-block__statement">Decluttered the input area by removing distracting icons, unnecessary helper links, and redundant labels.</p>
+            <p class="cs-block__support">We trusted our users to be able to gauge meaning through input labels and reduced friction by removing helpers. In addition, we improved UX by allowing card provider logos to appear when the user typed into the card information input field. This way, we stayed compliant and reduced clutter.</p>
+          </div>
+          <img src="assets/proj/barion-gateway/clutter-gpay.png" alt="Decluttered input area" />
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-block__text">
+            <p class="cs-block__statement">Unified all UI components under a consistent visual language aligned with the Barion design system.</p>
+            <p class="cs-block__support">The Barion Design System was an ongoing project at this point and this project gave us the perfect opportunity to bounce ideas and come up with a visual system that we were happy with and that would scale efficiently.</p>
+          </div>
+          <img src="assets/proj/barion-gateway/old-vs-new.png" alt="Old UI vs new UI" style="max-width: 500px;" />
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-block__text">
+            <p class="cs-block__statement">Introduced rounded corners throughout for a softer, more modern aesthetic.</p>
+            <p class="cs-block__support">This simple but impactful change did a lot for speaking our brand language through the UI.</p>
+          </div>
+          <img src="assets/proj/barion-gateway/radius.png" alt="Rounded corner system" style="max-width: 600px;" />
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-block__text">
+            <p class="cs-block__statement">Redesigned the success and error states. Clean success screens, prominent error indicators to prevent costly mistakes.</p>
+            <p class="cs-block__support">Success and error screens stopped being something to guess, and started defining issues more clearly.</p>
+          </div>
+          <img src="assets/proj/barion-gateway/success-error.png" alt="Redesigned success and error states" style="max-width: 600px;" />
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-block__text">
+            <p class="cs-block__statement">Made sure that the UI was pliable for easy customisation by merchants.</p>
+            <p class="cs-block__support">Our refined branding now conveys a more subtle presence, empowering our merchants to fully express their unique colors. This enhances the shopping experience, making it feel more seamless and trustworthy.</p>
+          </div>
+          <img src="assets/proj/barion-gateway/customised-shop.png" alt="Merchant-customised gateway examples" />
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-block__text">
+            <p class="cs-block__statement">Delivered a full dark mode as a final feature addition.</p>
+            <p class="cs-block__support">This made developers everywhere very happy!</p>
+          </div>
+          <img src="assets/proj/barion-gateway/dark-mode.png" alt="Dark mode" style="max-width: 606px;" />
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Outcome -->
+    <section class="cs-section" id="outcome">
+      <h2 class="cs-section__heading">Outcome</h2>
+      <p class="cs-outcome-statement">94% Customer Satisfaction Score and 0.5s improvement in Average Session Duration</p>
+      <ul class="cs-list">
+        <li>We saw a very noticeable spike in Google and Apple Pay, which resulted in much quicker conversion.</li>
+        <li>Users were able to identify clearly when running into issues.</li>
+        <li>Our feedback forms received a 94% favourable response towards the new design.</li>
+        <li>There are further improvements that need to be made to make the user experience seamless and to help the gateway scale better in the future, but the project goals were met and exceeded.</li>
+      </ul>
+    </section>
+
+    <!-- Prev / Next -->
+    <nav class="cs-pagenav">
+      <a href="/recipebook.html">
+        <div class="cs-pagenav__col">
+          <span class="cs-pagenav__dir"><img src="assets/arrow.svg" alt="" style="width:14px;height:14px;transform:rotate(180deg);" />Previous</span>
+          <span class="cs-pagenav__title">RecipeBook</span>
+        </div>
+      </a>
+      <a href="/barion-brand.html">
+        <div class="cs-pagenav__col cs-pagenav__col--next">
+          <span class="cs-pagenav__dir">Next<img src="assets/arrow.svg" alt="" style="width:14px;height:14px;" /></span>
+          <span class="cs-pagenav__title">Barion Design System</span>
+        </div>
+      </a>
+    </nav>
+
+    <!-- CTA / Footer -->
+    <section class="cta cta--footer">
+      <div class="container">
+        <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2vW4RpSZejLxgmTTMDxvm0J0nFDjnOiR7LTaFAJMQobYHZuZXFCARJ-3xcp2Z6rQBIwjYaGinx" target="_blank" rel="noopener" class="cta__pill">
+          <div class="cta__photo-wrap">
+            <img src="assets/photo-pill.png" alt="Archita Bose" class="cta__photo" />
+          </div>
+          <div class="cta__text">
+            <span class="cta__line1">Let's get started</span>
+            <span class="cta__line2">
+              Connect with me
+              <img src="assets/arrow-right-blue.svg" alt="→" class="cta__arrow" />
+            </span>
+          </div>
+        </a>
+        <div class="cta__links">
+          <a href="mailto:message@architaness.com">message@architaness.com</a>
+          <a href="https://www.instagram.com/architaness" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/in/architabose/" target="_blank" rel="noopener">Linkedin</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="assets/cs-nav.js"></script>
+
+</body>
+</html>

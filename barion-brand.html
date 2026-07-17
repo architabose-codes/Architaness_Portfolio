@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Barion Brand Identity &amp; Design System — Archita Bose</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&family=Sorts+Mill+Goudy:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <main class="cs-page">
+
+    <!-- Top bar: back + section tabs -->
+    <div class="cs-topbar">
+      <div class="cs-topbar__inner">
+        <a href="/" class="cs-back" aria-label="Back to all work">
+          <img src="assets/arrow.svg" alt="←" style="transform: rotate(180deg);" />
+        </a>
+        <nav class="cs-tabs" id="csTabs">
+          <span class="nav__highlight" id="csTabsHighlight" aria-hidden="true"></span>
+          <a href="#summary" class="is-active">
+            <svg class="cs-tabs__dots" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="5" cy="12" r="2" fill="currentColor"/>
+              <circle cx="12" cy="12" r="2" fill="currentColor"/>
+              <circle cx="19" cy="12" r="2" fill="currentColor"/>
+            </svg>
+            <span class="cs-tabs__label">Summary</span>
+          </a>
+          <a href="#problem">Problem</a>
+          <a href="#process">Process</a>
+          <a href="#solution">Solution</a>
+          <a href="#outcome">Outcome</a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Head: icon, title, subtitle + meta strip -->
+    <div class="cs-head">
+      <div class="cs-head__icon">
+        <img src="assets/proj/barion-mark.svg" alt="Barion" />
+      </div>
+      <div class="cs-head__text">
+        <h1 class="cs-head__title">Barion Brand Identity &amp; Design System</h1>
+        <p class="cs-head__sub">A complete brand refresh and design system build for Barion — from strategic positioning to a live component library powering 18,000+ merchant checkouts.</p>
+      </div>
+      <div class="cs-meta">
+        <span class="cs-meta__item">Lead Designer</span>
+        <span class="cs-meta__item">1 year (2023)</span>
+        <span class="cs-meta__item">Barion Payment Inc.</span>
+        <span class="cs-meta__item">Brand &amp; Product</span>
+        <a href="https://design.barion.com/" target="_blank" rel="noopener" class="cs-meta__chip">
+          <span class="cs-meta__chip-icon"><img src="assets/proj/barion-mark.svg" alt="" /></span>
+          Barion Design
+        </a>
+        <a href="https://barion-design-system.vercel.app/" target="_blank" rel="noopener" class="cs-meta__chip">
+          <span class="cs-meta__chip-icon"><img src="assets/proj/barion-mark.svg" alt="" /></span>
+          Design System
+        </a>
+      </div>
+    </div>
+
+    <!-- Hero embed -->
+    <div class="cs-hero cs-hero--embed">
+      <iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://embed.figma.com/design/OmeynxsvYTEtnkZ4d6gWrR/Brand-Guidelines---Design-System?node-id=0-1&embed-host=share" allowfullscreen></iframe>
+    </div>
+
+    <!-- Summary -->
+    <section class="cs-section cs-section--wide" id="summary">
+      <h2 class="cs-section__heading">Summary</h2>
+      <div class="cs-lead">
+        <p>Barion is a Hungarian fintech company with a 15-year history, powering payments for 18,000+ shops across B2B and B2C markets.<br />I refreshed the outdated brand identity and built Barion's design system from scratch to make the product experience more consistent, scalable, and aligned with the company's international fintech ambitions.</p>
+        <div>
+          <p>I was responsible for:</p>
+          <ul>
+            <li>The full brand refresh, including strategy, visual direction, and a comprehensive guideline for print and digital use.</li>
+            <li>Competitive and stakeholder research, including a brand positioning matrix and Golden Circle interviews.</li>
+            <li>The creation of a full component library with 40+ components and 90+ variants.</li>
+            <li>A 2-tier design token system to support scalable, consistent product design across Barion products.</li>
+            <li>Art direction for the illustration approach, including briefing and collaborating with an external illustrator.</li>
+            <li>A live design system and brand toolkit that helped designers and developers work faster, saving 2 hours per design cycle and achieving a CES score of 1/5.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="cs-stats">
+        <div class="cs-stat">
+          <span class="cs-stat__num">40+</span>
+          <span class="cs-stat__label">Components</span>
+        </div>
+        <div class="cs-stat">
+          <span class="cs-stat__num">90+</span>
+          <span class="cs-stat__label">Variants</span>
+        </div>
+        <div class="cs-stat">
+          <span class="cs-stat__num">2-tier</span>
+          <span class="cs-stat__label">Token system</span>
+        </div>
+        <div class="cs-stat">
+          <span class="cs-stat__num">2hrs</span>
+          <span class="cs-stat__label">Saved per design cycle</span>
+        </div>
+        <div class="cs-stat">
+          <span class="cs-stat__num">Live</span>
+          <span class="cs-stat__label">Design system</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="cs-img">
+      <img src="assets/proj/barion-brand/final-ui.png" alt="Barion brand and design system overview" style="max-width: 800px;" />
+    </div>
+
+    <!-- Problem -->
+    <section class="cs-section" id="problem">
+      <h2 class="cs-section__heading">Problem</h2>
+      <div class="cs-grid">
+        <div class="cs-card">
+          <p class="cs-card__title">Outdated brand guideline</p>
+          <p class="cs-card__text">The existing brand guideline was outdated, inconsistent, and too brief to serve as a reliable reference for print or digital products.</p>
+        </div>
+        <div class="cs-card">
+          <p class="cs-card__title">Misaligned identity</p>
+          <p class="cs-card__text">The visual identity no longer reflected Barion's market position or its ambition to compete with larger international fintech brands.</p>
+        </div>
+        <div class="cs-card">
+          <p class="cs-card__title">No component library</p>
+          <p class="cs-card__text">There was no component library, forcing designers to rebuild elements from scratch on every project.</p>
+        </div>
+        <div class="cs-card">
+          <p class="cs-card__title">No design tokens</p>
+          <p class="cs-card__text">Without design tokens, there was no scalable system to ensure consistency across products.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Process -->
+    <section class="cs-section" id="process">
+      <h2 class="cs-section__heading">Process</h2>
+      <ol start="1">
+        <li>Mapped Barion's competitive position using a brand positioning matrix against fintech peers including Stripe, Klarna, Revolut, and Wise.</li>
+      </ol>
+      <ol start="2">
+        <li>Conducted stakeholder interviews using the Golden Circle framework to establish a unified understanding of the brand's purpose.</li>
+      </ol>
+      <ol start="3">
+        <li>Built the full component library and established a 2-tier token system for scalability and consistency.</li>
+      </ol>
+    </section>
+
+    <div class="cs-img">
+      <img src="assets/proj/barion-brand/research.png" alt="Brand positioning research" style="max-width: 878px;" />
+    </div>
+
+    <!-- Solution -->
+    <section class="cs-section" id="solution">
+      <h2 class="cs-section__heading">Solution</h2>
+      <div class="cs-blocks">
+
+        <div class="cs-block">
+          <div class="cs-block__text">
+            <p class="cs-block__statement">Comprehensive brand guideline</p>
+            <p class="cs-block__support">Covering logo usage, colour system, typography, iconography, illustration approach, and photography direction.</p>
+          </div>
+          <img src="assets/proj/barion-brand/phone.png" alt="Barion brand guideline applied" />
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-block__text">
+            <p class="cs-block__statement">2-tier design token system</p>
+            <p class="cs-block__support">Ensuring scalability across all Barion products</p>
+          </div>
+          <img src="assets/proj/barion-brand/system.png" alt="2-tier design token system" />
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-block__text">
+            <p class="cs-block__statement">Component library with 40+ components and 90+ variants.</p>
+          </div>
+          <img src="assets/proj/barion-brand/brand-strip.png" alt="Component library" />
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-block__text">
+            <p class="cs-block__statement">Brand applied consistently across print, digital, and physical touchpoints.</p>
+          </div>
+          <img src="assets/proj/barion-brand/stories.png" alt="Brand across touchpoints" />
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-block__text">
+            <p class="cs-block__statement">Expanded icon set with additional varieties to support product UI needs.</p>
+          </div>
+          <img src="assets/proj/barion-brand/icons.png" alt="Expanded icon set" />
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-block__text">
+            <p class="cs-block__statement">Art direction for the illustration approach, including briefing and collaborating with an external illustrator.</p>
+          </div>
+          <img src="assets/proj/barion-brand/illustrations.png" alt="Isometric illustration system" />
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-block__text">
+            <p class="cs-block__statement">A live design system and brand toolkit</p>
+            <p class="cs-block__support">That helped designers and developers work faster, saving 2 hours per design cycle and achieving a CES score of 1/5.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Outcome -->
+    <section class="cs-section" id="outcome">
+      <h2 class="cs-section__heading">Outcome</h2>
+      <p class="cs-outcome-statement">40+ components, 90+ variants delivered — live across Barion products</p>
+      <ul class="cs-list">
+        <li>2 hours saved per design cycle after system adoption.</li>
+        <li>CES score of 1/5 (lowest = easiest to use) from internal designers and developers.</li>
+        <li>Developers independently navigating guidelines without designer support.</li>
+        <li>Unified brand representation visible across products, merchandise, posters, and exhibition stands.</li>
+      </ul>
+    </section>
+
+    <!-- Prev / Next -->
+    <nav class="cs-pagenav">
+      <a href="/barion-gateway.html">
+        <div class="cs-pagenav__col">
+          <span class="cs-pagenav__dir"><img src="assets/arrow.svg" alt="" style="width:14px;height:14px;transform:rotate(180deg);" />Previous</span>
+          <span class="cs-pagenav__title">Barion Smart Gateway</span>
+        </div>
+      </a>
+      <a href="/gen6.html">
+        <div class="cs-pagenav__col cs-pagenav__col--next">
+          <span class="cs-pagenav__dir">Next<img src="assets/arrow.svg" alt="" style="width:14px;height:14px;" /></span>
+          <span class="cs-pagenav__title">GEN6</span>
+        </div>
+      </a>
+    </nav>
+
+    <!-- CTA / Footer -->
+    <section class="cta cta--footer">
+      <div class="container">
+        <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2vW4RpSZejLxgmTTMDxvm0J0nFDjnOiR7LTaFAJMQobYHZuZXFCARJ-3xcp2Z6rQBIwjYaGinx" target="_blank" rel="noopener" class="cta__pill">
+          <div class="cta__photo-wrap">
+            <img src="assets/photo-pill.png" alt="Archita Bose" class="cta__photo" />
+          </div>
+          <div class="cta__text">
+            <span class="cta__line1">Let's get started</span>
+            <span class="cta__line2">
+              Connect with me
+              <img src="assets/arrow-right-blue.svg" alt="→" class="cta__arrow" />
+            </span>
+          </div>
+        </a>
+        <div class="cta__links">
+          <a href="mailto:message@architaness.com">message@architaness.com</a>
+          <a href="https://www.instagram.com/architaness" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/in/architabose/" target="_blank" rel="noopener">Linkedin</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="assets/cs-nav.js"></script>
+
+</body>
+</html>

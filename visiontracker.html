@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vision Tracker — Archita Bose</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&family=Sorts+Mill+Goudy:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <main class="cs-page">
+
+    <!-- Top bar: back + section tabs -->
+    <div class="cs-topbar">
+      <div class="cs-topbar__inner">
+        <a href="/" class="cs-back" aria-label="Back to all work">
+          <img src="assets/arrow.svg" alt="←" style="transform: rotate(180deg);" />
+        </a>
+        <nav class="cs-tabs" id="csTabs">
+          <span class="nav__highlight" id="csTabsHighlight" aria-hidden="true"></span>
+          <a href="#summary" class="is-active">
+            <svg class="cs-tabs__dots" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="5" cy="12" r="2" fill="currentColor"/>
+              <circle cx="12" cy="12" r="2" fill="currentColor"/>
+              <circle cx="19" cy="12" r="2" fill="currentColor"/>
+            </svg>
+            <span class="cs-tabs__label">Summary</span>
+          </a>
+          <a href="#problem">Problem</a>
+          <a href="#process">Process</a>
+          <a href="#solution">Solution</a>
+          <a href="#outcome">Outcome</a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Head: icon, title, subtitle + meta strip -->
+    <div class="cs-head">
+      <div class="cs-head__text">
+        <h1 class="cs-head__title">Vision Tracker</h1>
+        <p class="cs-head__sub">A personal productivity web app that makes progress visible on a calendar — combining journalling, event marking, and habit tracking into one calm interface.</p>
+      </div>
+      <div class="cs-meta">
+        <span class="cs-meta__pill"><img src="assets/proj/live-dot.svg" alt="" />Live</span>
+        <span class="cs-meta__item">Designer &amp; Builder</span>
+        <span class="cs-meta__item">~1 week (2025)</span>
+        <span class="cs-meta__item">Personal Project</span>
+        <span class="cs-meta__item">Web App</span>
+        <a href="https://visiontracker.xyz" target="_blank" rel="noopener" class="cs-meta__chip">visiontracker.xyz</a>
+      </div>
+    </div>
+
+    <!-- Hero image -->
+    <div class="cs-hero" style="width: 800px; height: auto;">
+      <img src="assets/Project images/Project Heros/Visiontracker.png" alt="Vision Tracker app" style="height: auto;" />
+    </div>
+
+    <!-- Summary -->
+    <section class="cs-section cs-section--wide" id="summary">
+      <h2 class="cs-section__heading">Summary</h2>
+      <div class="cs-lead">
+        <p>Vision Tracker is a personal productivity web app built on a simple insight: people need to see their progress to feel it. Rather than tracking habits in the abstract, Vision Tracker makes progress visible on a calendar — combining journalling, event marking, and habit tracking into a single, calm interface. It works like crossing days off a calendar, but with meaning attached to each day.</p>
+        <div>
+          <p>Everything I did:</p>
+          <ul>
+            <li>The product concept and feature scope, focused on three core actions: journalling, events, and habits.</li>
+            <li>Planned full user flow with the goal to keep things simple to use, highly visual and free of clutter and friction.</li>
+            <li>The landing page design, communicating the value of seeing progress at a glance.</li>
+            <li>The calendar-based app interface, where each day reflects journal entries, colour-coded events, and habit completions.</li>
+            <li>A live web app launched at visiontracker.xyz, with all three core features operational.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="cs-stats">
+        <div class="cs-stat">
+          <span class="cs-stat__num">Live</span>
+          <span class="cs-stat__label">At visiontracker.xyz</span>
+        </div>
+        <div class="cs-stat">
+          <span class="cs-stat__num">3</span>
+          <span class="cs-stat__label">Core features shipped</span>
+        </div>
+        <div class="cs-stat">
+          <span class="cs-stat__num">241</span>
+          <span class="cs-stat__label">Entries so far</span>
+        </div>
+        <div class="cs-stat">
+          <span class="cs-stat__num">1 week</span>
+          <span class="cs-stat__label">Designed &amp; launched in</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Problem -->
+    <section class="cs-section" id="problem">
+      <h2 class="cs-section__heading">Problem</h2>
+      <div class="cs-lead">
+        <p>Most habit and productivity tools are either too complex, require too much daily input, or don't make progress feel tangible. There was no simple tool that let users journal, mark meaningful events, and track habits — all on a visual calendar they could actually see filling up.</p>
+      </div>
+    </section>
+
+    <!-- Process -->
+    <section class="cs-section" id="process">
+      <h2 class="cs-section__heading">Process</h2>
+      <ol start="1">
+        <li>Defined the product scope around three core features: daily journalling, event/memory marking, and habit tracking — all surfaced on a monthly calendar view.</li>
+        <li>Designed the landing page to communicate the core value proposition quickly.</li>
+      </ol>
+    </section>
+
+    <div class="cs-img" style="max-width: 500px;">
+      <img src="assets/Project images/Vision tracker/Landing.png" alt="Vision Tracker landing page" />
+    </div>
+
+    <section class="cs-section">
+      <ol start="3">
+        <li>Designed sign-up and log-in flows with full backend authentication.</li>
+      </ol>
+    </section>
+
+    <div class="cs-img" style="max-width: 600px;">
+      <img src="assets/Project images/Vision tracker/Login-signup.png" alt="Vision Tracker sign-up and login" />
+    </div>
+
+    <section class="cs-section">
+      <ol start="4">
+        <li>Built pop-up interaction patterns for each feature: Journal (thoughts for the day), Event (name + colour), Habits (create and track).</li>
+      </ol>
+    </section>
+
+    <div class="cs-img" style="max-width: 700px;">
+      <img src="assets/Project images/Vision tracker/Pop-up.png" alt="Vision Tracker pop-up interaction patterns" />
+    </div>
+
+    <section class="cs-section">
+      <ol start="5">
+        <li>Kept the scope deliberately tight: desktop-only, one core view, three interactions.</li>
+      </ol>
+    </section>
+
+    <!-- Solution -->
+    <section class="cs-section" id="solution">
+      <h2 class="cs-section__heading">Solution</h2>
+      <div class="cs-blocks">
+
+        <div class="cs-block">
+          <div class="cs-block__text">
+            <p class="cs-block__statement">Landing page clearly communicating the value.</p>
+            <p class="cs-block__support">Journal your thoughts, mark important events, track your habits — and actually see your progress.</p>
+          </div>
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-block__text">
+            <p class="cs-block__statement">Calendar-based app where each day reflects what happened.</p>
+            <p class="cs-block__support">Journal entries, colour-coded events, and habit completions.</p>
+          </div>
+          <img src="assets/Project images/Vision tracker/Calendar 1.png" alt="Vision Tracker calendar view" style="max-width: 600px;" />
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-block__text">
+            <p class="cs-block__statement">Journal entry modal.</p>
+            <p class="cs-block__support">Daily text entry with option to show entry on calendar. It saves automatically as well as upon button click.</p>
+          </div>
+          <img src="assets/Project images/Vision tracker/Journal.png" alt="Vision Tracker journal pop-up" style="max-width: 600px;" />
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-block__text">
+            <p class="cs-block__statement">Event entry modal.</p>
+            <p class="cs-block__support">Name and colour-code any day — birthdays, achievements, milestones.</p>
+          </div>
+          <img src="assets/Project images/Vision tracker/Event.png" alt="Vision Tracker event pop-up" style="max-width: 300px;" />
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-block__text">
+            <p class="cs-block__statement">Habit entry modal.</p>
+            <p class="cs-block__support">Create and check off habits every day.</p>
+          </div>
+          <img src="assets/Project images/Vision tracker/Newhabit.png" alt="Vision Tracker habits pop-up" style="max-width: 500px;" />
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Outcome -->
+    <section class="cs-section" id="outcome">
+      <h2 class="cs-section__heading">Outcome</h2>
+      <p class="cs-outcome-statement">Designed and shipped within one week — live at visiontracker.xyz</p>
+      <div class="cs-img" style="max-width: 500px; margin: 0 auto;">
+        <img src="assets/Project images/Vision tracker/feedback.jpg" alt="Vision Tracker user feedback" style="border-radius: 25px;" />
+      </div>
+      <ul class="cs-list">
+        <li>The app has seen 241 entries so far and very good reviews!</li>
+      </ul>
+    </section>
+
+    <!-- Prev / Next -->
+    <nav class="cs-pagenav">
+      <a href="/ewealth.html">
+        <div class="cs-pagenav__col">
+          <span class="cs-pagenav__dir"><img src="assets/arrow.svg" alt="" style="width:14px;height:14px;transform:rotate(180deg);" />Previous</span>
+          <span class="cs-pagenav__title">eWealth</span>
+        </div>
+      </a>
+      <a href="/recipebook.html">
+        <div class="cs-pagenav__col cs-pagenav__col--next">
+          <span class="cs-pagenav__dir">Next<img src="assets/arrow.svg" alt="" style="width:14px;height:14px;" /></span>
+          <span class="cs-pagenav__title">RecipeBook</span>
+        </div>
+      </a>
+    </nav>
+
+    <!-- CTA / Footer -->
+    <section class="cta cta--footer">
+      <div class="container">
+        <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2vW4RpSZejLxgmTTMDxvm0J0nFDjnOiR7LTaFAJMQobYHZuZXFCARJ-3xcp2Z6rQBIwjYaGinx" target="_blank" rel="noopener" class="cta__pill">
+          <div class="cta__photo-wrap">
+            <img src="assets/photo-pill.png" alt="Archita Bose" class="cta__photo" />
+          </div>
+          <div class="cta__text">
+            <span class="cta__line1">Let's get started</span>
+            <span class="cta__line2">
+              Connect with me
+              <img src="assets/arrow-right-blue.svg" alt="→" class="cta__arrow" />
+            </span>
+          </div>
+        </a>
+        <div class="cta__links">
+          <a href="mailto:message@architaness.com">message@architaness.com</a>
+          <a href="https://www.instagram.com/architaness" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/in/architabose/" target="_blank" rel="noopener">Linkedin</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="assets/cs-nav.js"></script>
+
+</body>
+</html>

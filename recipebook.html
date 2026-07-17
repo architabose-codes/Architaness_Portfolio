@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RecipeBook — Archita Bose</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&family=Sorts+Mill+Goudy:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <main class="cs-page">
+
+    <!-- Top bar: back + section tabs -->
+    <div class="cs-topbar">
+      <div class="cs-topbar__inner">
+        <a href="/" class="cs-back" aria-label="Back to all work">
+          <img src="assets/arrow.svg" alt="←" style="transform: rotate(180deg);" />
+        </a>
+        <nav class="cs-tabs" id="csTabs">
+          <span class="nav__highlight" id="csTabsHighlight" aria-hidden="true"></span>
+          <a href="#summary" class="is-active">
+            <svg class="cs-tabs__dots" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="5" cy="12" r="2" fill="currentColor"/>
+              <circle cx="12" cy="12" r="2" fill="currentColor"/>
+              <circle cx="19" cy="12" r="2" fill="currentColor"/>
+            </svg>
+            <span class="cs-tabs__label">Summary</span>
+          </a>
+          <a href="#problem">Problem</a>
+          <a href="#process">Process</a>
+          <a href="#solution">Solution</a>
+          <a href="#outcome">Outcome</a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Head: icon, title, subtitle + meta strip -->
+    <div class="cs-head">
+      <div class="cs-head__text">
+        <h1 class="cs-head__title">RecipeBook</h1>
+        <p class="cs-head__sub">A personal web app for saving recipe links from the web and creating custom recipes — all in one organised collection.</p>
+      </div>
+      <div class="cs-meta">
+        <span class="cs-meta__pill"><img src="assets/proj/live-dot.svg" alt="" />Live</span>
+        <span class="cs-meta__item">Designer &amp; Builder</span>
+        <span class="cs-meta__item">~1 week (2025)</span>
+        <span class="cs-meta__item">Personal Project</span>
+        <span class="cs-meta__item">Web App</span>
+        <a href="https://recipe-book.site" target="_blank" rel="noopener" class="cs-meta__chip">recipe-book.site</a>
+      </div>
+    </div>
+
+    <!-- Hero image -->
+    <div class="cs-hero" style="width: 800px; height: auto;">
+      <img src="assets/Project images/Project Heros/Recipebook.png" alt="RecipeBook app" style="height: auto;" />
+    </div>
+
+    <!-- Summary -->
+    <section class="cs-section cs-section--wide" id="summary">
+      <h2 class="cs-section__heading">Summary</h2>
+      <div class="cs-lead">
+        <p>RecipeBook is a personal web app that helps people save, organise, and revisit recipes in one clean, dedicated space. It supports both URL-based recipe imports and fully custom recipe creation, bringing scattered bookmarks, screenshots, and notes into a single personal cookbook.<br />I designed and built the full product independently — from concept and interface design to launch — and shipped it live in around one week.</p>
+        <div>
+          <p>I was responsible for:</p>
+          <ul>
+            <li>The product concept and feature scope, focused on two core actions: importing recipes from URLs and creating recipes manually.</li>
+            <li>The home page design, with clear entry points for URL import and custom recipe creation.</li>
+            <li>The saved recipe library, with list view, favouriting, date added, and source links.</li>
+            <li>The custom recipe editor, including structured sections for ingredients, step-by-step instructions, and notes.</li>
+            <li>A live web app launched at recipe-book.site, with the core recipe-saving experience operational.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="cs-stats">
+        <div class="cs-stat">
+          <span class="cs-stat__num">417</span>
+          <span class="cs-stat__label">Saved recipes</span>
+        </div>
+        <div class="cs-stat">
+          <span class="cs-stat__num">1 week</span>
+          <span class="cs-stat__label">Designed &amp; launched in</span>
+        </div>
+        <div class="cs-stat">
+          <span class="cs-stat__num">1 developer</span>
+          <span class="cs-stat__label">Called for back-end support</span>
+        </div>
+        <div class="cs-stat">
+          <span class="cs-stat__num">Live</span>
+          <span class="cs-stat__label">At recipe-book.site</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Problem -->
+    <section class="cs-section" id="problem">
+      <h2 class="cs-section__heading">Problem</h2>
+      <div class="cs-lead">
+        <p>Recipe lovers tend to bookmark links across browsers, screenshot cards, and write steps in notes apps — none of which are organised or shareable. There was no lightweight tool that handled both saved web recipes and custom user-created ones in a single, clean interface.</p>
+      </div>
+    </section>
+
+    <!-- Process -->
+    <section class="cs-section" id="process">
+      <h2 class="cs-section__heading">Process</h2>
+    </section>
+
+    <div class="cs-img" style="max-width: 700px; display: flex; align-items: center; justify-content: center; min-height: 260px; background: #e9e9e9; color: #888;">
+      Youtube embed
+    </div>
+
+    <!-- Solution -->
+    <section class="cs-section" id="solution">
+      <h2 class="cs-section__heading">Solution</h2>
+      <div class="cs-blocks">
+
+        <div class="cs-block">
+          <div class="cs-block__text">
+            <p class="cs-block__statement">Home page with URL paste field — users can import any recipe from the web.</p>
+            <p class="cs-block__support">Any URL from a recipe site can be pasted here, and is parsed and saved into the library.</p>
+          </div>
+          <img src="assets/Project images/Recipebook/Img 1.png" alt="RecipeBook home page" style="max-width: 600px;" />
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-block__text">
+            <p class="cs-block__statement">Custom recipe editor</p>
+            <p class="cs-block__support">Title, ingredients (checkbox list), step-by-step instructions, and free-form notes.</p>
+          </div>
+          <img src="assets/Project images/Recipebook/Img 4.png" alt="RecipeBook custom recipe editor detail" style="max-width: 500px;" />
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-block__text">
+            <p class="cs-block__statement">My Recipes library</p>
+            <p class="cs-block__support">All saved recipes in a clean list with date added, source link, and favouriting.</p>
+          </div>
+          <img src="assets/Project images/Recipebook/Recipelibrary.png" alt="RecipeBook saved recipe library" style="max-width: 700px;" />
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-block__text">
+            <p class="cs-block__statement">Full recipe detail view in both short and long formats.</p>
+          </div>
+          <img src="assets/Project images/Recipebook/Short recipe with description.png" alt="RecipeBook full recipe detail view" style="max-width: 600px;" />
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-block__text">
+            <p class="cs-block__statement">Didn't want any extensive backend for this project, so at the moment, this app stores recipes locally but can be shared across devices using a share link.</p>
+          </div>
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-block__text">
+            <p class="cs-block__statement">Designed all secondary states</p>
+            <p class="cs-block__support">Loading, error (not logged in), delete confirmation modal, and empty state.</p>
+          </div>
+          <img src="assets/Project images/Recipebook/Img 3.png" alt="RecipeBook secondary states" style="max-width: 500px;" />
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Outcome -->
+    <section class="cs-section" id="outcome">
+      <h2 class="cs-section__heading">Outcome</h2>
+      <p class="cs-outcome-statement">Designed and shipped within one week — live at recipe-book.site</p>
+      <ul class="cs-list">
+        <li>The app has seen 417 recipes so far and good reviews. However, it hasn't seen much traffic since 2025 as many more apps have come up for both mobile and web use that perform this exact function.</li>
+      </ul>
+    </section>
+
+    <!-- Prev / Next -->
+    <nav class="cs-pagenav">
+      <a href="/visiontracker.html">
+        <div class="cs-pagenav__col">
+          <span class="cs-pagenav__dir"><img src="assets/arrow.svg" alt="" style="width:14px;height:14px;transform:rotate(180deg);" />Previous</span>
+          <span class="cs-pagenav__title">Vision Tracker</span>
+        </div>
+      </a>
+      <a href="/barion-gateway.html">
+        <div class="cs-pagenav__col cs-pagenav__col--next">
+          <span class="cs-pagenav__dir">Next<img src="assets/arrow.svg" alt="" style="width:14px;height:14px;" /></span>
+          <span class="cs-pagenav__title">Barion Smart Gateway</span>
+        </div>
+      </a>
+    </nav>
+
+    <!-- CTA / Footer -->
+    <section class="cta cta--footer">
+      <div class="container">
+        <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2vW4RpSZejLxgmTTMDxvm0J0nFDjnOiR7LTaFAJMQobYHZuZXFCARJ-3xcp2Z6rQBIwjYaGinx" target="_blank" rel="noopener" class="cta__pill">
+          <div class="cta__photo-wrap">
+            <img src="assets/photo-pill.png" alt="Archita Bose" class="cta__photo" />
+          </div>
+          <div class="cta__text">
+            <span class="cta__line1">Let's get started</span>
+            <span class="cta__line2">
+              Connect with me
+              <img src="assets/arrow-right-blue.svg" alt="→" class="cta__arrow" />
+            </span>
+          </div>
+        </a>
+        <div class="cta__links">
+          <a href="mailto:message@architaness.com">message@architaness.com</a>
+          <a href="https://www.instagram.com/architaness" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/in/architabose/" target="_blank" rel="noopener">Linkedin</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="assets/cs-nav.js"></script>
+
+</body>
+</html>
