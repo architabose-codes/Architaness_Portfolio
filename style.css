@@ -1234,6 +1234,10 @@ ul  { list-style: none; }
   .connect__inner { flex-direction: column; }
   .connect__actions { min-width: unset; width: 100%; align-items: flex-start; }
 
+  /* 24px keeps the pill's natural (nowrap) width inside the container's
+     existing 24px side padding on a 375px viewport — 32px read as "big"
+     enough but overflowed past that padding, right to the screen edge. */
+  .cta__pill { font-size: 24px; }
   .cta__links { flex-direction: column; align-items: center; gap: 12px; }
 
   .work__row { flex-direction: column; align-items: flex-start; gap: 16px; }
