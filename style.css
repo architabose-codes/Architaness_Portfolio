@@ -67,7 +67,7 @@ ul  { list-style: none; }
   font-weight: 400;
   color: var(--text-2);
   letter-spacing: -0.02em;
-  margin-bottom: 54px;
+  margin-bottom: 36px;
 }
 
 /* =========================================
@@ -599,9 +599,35 @@ ul  { list-style: none; }
   padding: 40px 24px 36px;
 }
 
+/* Cards are only collapsible on mobile (see @media max-width:768px) —
+   on desktop every card ships with the open attribute (index.html) and
+   must stay that way. Chromium wraps everything past <summary> in an
+   internal ::details-content box that it can leave content-visibility:
+   hidden even while open is set statically in markup (rather than
+   toggled live), so content has real box geometry but doesn't paint or
+   expose its text unless forced — scoped to desktop only, since forcing
+   it unconditionally would also defeat mobile's collapsed state. */
+@media (min-width: 769px) {
+  .pricing__card::details-content {
+    content-visibility: visible;
+  }
+}
+
 .pricing__card--blue {
   background: var(--bg-blue);
 }
+
+/* Setting display:flex on <summary> both lays out its contents in a
+   column (matching the card's own flex-column flow) and, as a side
+   effect, suppresses the browser's default disclosure-triangle marker —
+   no list-style/marker hacks needed. Collapsibility itself is mobile-only:
+   see the desktop and mobile media queries below. */
+.pricing__summary {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+.pricing__summary::-webkit-details-marker { display: none; }
 
 .pricing__tier {
   font-family: var(--font-sans);
@@ -654,11 +680,30 @@ ul  { list-style: none; }
   color: var(--text);
 }
 
+.pricing__duration-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 42px;
+}
+
 .pricing__duration {
   font-size: 14px;
   color: var(--text-2);
   letter-spacing: -0.02em;
-  margin-bottom: 42px;
+}
+
+/* Hidden on desktop, where every card is always fully expanded (see the
+   force-visible override below) — the toggle affordance only makes sense
+   once the card is actually collapsible, on mobile. */
+.pricing__chevron {
+  display: none;
+  width: 20px;
+  height: 20px;
+  color: var(--text-2);
+  flex-shrink: 0;
+  transition: transform 0.3s var(--ease);
 }
 
 .pricing__divider {
@@ -840,23 +885,30 @@ ul  { list-style: none; }
   gap: 36px;
 }
 
+/* Sized entirely in em off the pill's own font-size, so the photo, gaps,
+   padding and arrow all scale in lockstep with the text as one continuous
+   curve across every viewport — rather than the text clamp()ing fluidly
+   while everything else jumped between two fixed sizes at the mobile
+   breakpoint. Em ratios below are carried over from the original fixed
+   desktop px values (e.g. 170px photo / 52px text = 3.269em). */
 .cta__pill {
   display: inline-flex;
   align-items: center;
-  gap: 29px;
+  gap: 0.558em;
   text-decoration: none;
   cursor: pointer;
   background: #08429f;
   border-radius: 229px;
-  padding: 17px 55px 17px 16px;
+  padding: 0.327em 1.058em 0.327em 0.308em;
+  font-size: clamp(20px, 4.5vw, 52px);
   transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .cta__pill:hover { transform: scale(1.025); }
 
 .cta__photo-wrap {
-  width: 170px;
-  height: 170px;
+  width: 3.269em;
+  height: 3.269em;
   border-radius: 50%;
   overflow: hidden;
   flex-shrink: 0;
@@ -876,12 +928,12 @@ ul  { list-style: none; }
 .cta__text {
   display: flex;
   flex-direction: column;
-  gap: 11px;
+  gap: 0.212em;
 }
 
 .cta__line1 {
   font-family: var(--font-sans);
-  font-size: clamp(32px, 4vw, 52px);
+  font-size: 1em;
   font-weight: 400;
   color: white;
   letter-spacing: -0.04em;
@@ -892,9 +944,9 @@ ul  { list-style: none; }
 .cta__line2 {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 0.096em;
   font-family: var(--font-sans);
-  font-size: clamp(32px, 4vw, 52px);
+  font-size: 1em;
   font-weight: 400;
   color: #b3cfff;
   letter-spacing: -0.04em;
@@ -903,8 +955,8 @@ ul  { list-style: none; }
 }
 
 .cta__arrow {
-  width: 28px;
-  height: 28px;
+  width: 0.538em;
+  height: 0.538em;
   flex-shrink: 0;
   opacity: 0;
   transform: translateX(-10px);
@@ -1153,7 +1205,7 @@ ul  { list-style: none; }
 
 @media (max-width: 768px) {
   /* Flat 16px side margins for all sections on mobile */
-  :root { --pad-x: 24px; }
+  :root { --pad-x: 24px; --sec: 50px; }
 
   /* Hide top floating nav on mobile — replaced by bottom nav */
   .nav { display: none; }
@@ -1163,6 +1215,8 @@ ul  { list-style: none; }
 
   /* Let the second hero line flow onto the same line as "designer." */
   .hero__break { display: none; }
+  .hero__headline { font-size: 36px; }
+  .hero__surname { display: none; }
 
   .about__inner { flex-direction: column; align-items: center; }
   .about__photo-wrap { width: 100%; }
@@ -1170,13 +1224,16 @@ ul  { list-style: none; }
 
   .pricing__grid { flex-direction: column; }
 
+  /* Cards ship with the open attribute (see index.html) so desktop is
+     always fully expanded; the inline script right after .pricing strips
+     it on mobile before paint, so cards start collapsed here and expand
+     via native <details> click-to-toggle. */
+  .pricing__chevron { display: block; }
+  .pricing__card[open] .pricing__chevron { transform: rotate(180deg); }
+
   .connect__inner { flex-direction: column; }
   .connect__actions { min-width: unset; width: 100%; align-items: flex-start; }
 
-  .cta__pill { gap: 20px; padding: 12px 32px 12px 12px; }
-  .cta__photo-wrap { width: 88px; height: 88px; }
-  .cta__line1, .cta__line2 { font-size: clamp(20px, 5vw, 28px); }
-  .cta__arrow { width: 20px; height: 20px; }
   .cta__links { flex-direction: column; align-items: center; gap: 12px; }
 
   .work__row { flex-direction: column; align-items: flex-start; gap: 16px; }
@@ -1184,11 +1241,9 @@ ul  { list-style: none; }
   .work__right { align-self: flex-end; }
   .work__arrow { display: none; }
 
-  /* Match all title sizes on the landing page to the hero headline's
-     mobile size, so Work/Resources/About headings read consistently. */
   .work__title,
   .resource__title,
-  .about__title { font-size: 24px; }
+  .about__title { font-size: 36px; }
 
   /* Static preview image (same asset as the desktop hover preview),
      shown between the number and title instead of on hover. */
@@ -1546,6 +1601,7 @@ ul  { list-style: none; }
   gap: 41px;
   padding-left: 42px;
   margin-top: 21px;
+  list-style: disc;
 }
 
 .cs-lead ul li { line-height: 1.6; }
@@ -1816,6 +1872,7 @@ ul  { list-style: none; }
   .cs-section ul.cs-list { gap: 24px; }
   .cs-blocks { gap: 64px; }
   .cs-stats { gap: 24px; justify-content: flex-start; }
+  .cs-stat__num { font-size: 32px; }
   .cs-pagenav, .cs-footer { padding-inline: 24px; }
   .cta--footer { margin-top: -64px; margin-bottom: -100px; padding-block: 48px; }
 }

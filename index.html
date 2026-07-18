@@ -66,7 +66,7 @@
     <section class="hero">
       <div class="container hero__inner">
         <h1 class="hero__headline">
-          Archita Bose is a Product <span class="hero__amp">&amp;</span> Brand designer.<br class="hero__break" />
+          Archita<span class="hero__surname"> Bose</span> is a Product <span class="hero__amp">&amp;</span> Brand designer.<br class="hero__break" />
           She specialises in Luxury, Fintech and SaaS.
         </h1>
         <div class="badge badge--live">
@@ -349,14 +349,21 @@
         <p class="section__eyebrow">BUILD WITH ME</p>
         <div class="pricing__grid">
 
-          <div class="pricing__card">
-            <h3 class="pricing__tier">Essentials</h3>
-            <p class="pricing__desc">Your brand essentials, built to get you in front of investors and early customers.</p>
-            <div class="pricing__price">
-              <span class="pricing__currency">€</span>
-              <span class="pricing__amount">1 000+</span>
-            </div>
-            <p class="pricing__duration">2-4 weeks</p>
+          <details class="pricing__card" open>
+            <summary class="pricing__summary">
+              <h3 class="pricing__tier">Essentials</h3>
+              <p class="pricing__desc">Your brand essentials, built to get you in front of investors and early customers.</p>
+              <div class="pricing__price">
+                <span class="pricing__currency">€</span>
+                <span class="pricing__amount">1 000+</span>
+              </div>
+              <div class="pricing__duration-row">
+                <p class="pricing__duration">2-4 weeks</p>
+                <svg class="pricing__chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </summary>
             <hr class="pricing__divider" />
             <ul class="pricing__features">
               <li>Brand positioning + statement</li>
@@ -368,16 +375,23 @@
               <li>Ready-to-use files (Figma)</li>
             </ul>
             <p class="pricing__note">*prices can vary depending on scope and deadline</p>
-          </div>
+          </details>
 
-          <div class="pricing__card pricing__card--blue">
-            <h3 class="pricing__tier">Evolution</h3>
-            <p class="pricing__desc">A full identity rebuild for companies that have outgrown where they started.</p>
-            <div class="pricing__price">
-              <span class="pricing__currency">€</span>
-              <span class="pricing__amount">4 000+</span>
-            </div>
-            <p class="pricing__duration">6 weeks</p>
+          <details class="pricing__card pricing__card--blue" open>
+            <summary class="pricing__summary">
+              <h3 class="pricing__tier">Evolution</h3>
+              <p class="pricing__desc">A full identity rebuild for companies that have outgrown where they started.</p>
+              <div class="pricing__price">
+                <span class="pricing__currency">€</span>
+                <span class="pricing__amount">4 000+</span>
+              </div>
+              <div class="pricing__duration-row">
+                <p class="pricing__duration">6 weeks</p>
+                <svg class="pricing__chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </summary>
             <hr class="pricing__divider" />
             <p class="pricing__upsell">Essentials +</p>
             <ul class="pricing__features">
@@ -389,16 +403,23 @@
               <li>Brand roll out assistance</li>
             </ul>
             <p class="pricing__note">*prices can vary depending on scope and deadline</p>
-          </div>
+          </details>
 
-          <div class="pricing__card">
-            <h3 class="pricing__tier">Ecosystem</h3>
-            <p class="pricing__desc">A complete brand, website and product system for companies entering their next chapter.</p>
-            <div class="pricing__price">
-              <span class="pricing__currency">€</span>
-              <span class="pricing__amount">12 000+</span>
-            </div>
-            <p class="pricing__duration">3 months</p>
+          <details class="pricing__card" open>
+            <summary class="pricing__summary">
+              <h3 class="pricing__tier">Ecosystem</h3>
+              <p class="pricing__desc">A complete brand, website and product system for companies entering their next chapter.</p>
+              <div class="pricing__price">
+                <span class="pricing__currency">€</span>
+                <span class="pricing__amount">12 000+</span>
+              </div>
+              <div class="pricing__duration-row">
+                <p class="pricing__duration">3 months</p>
+                <svg class="pricing__chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </summary>
             <hr class="pricing__divider" />
             <p class="pricing__upsell">Essentials + Evolution +</p>
             <ul class="pricing__features">
@@ -409,7 +430,7 @@
               <li>Brand roll out assistance</li>
             </ul>
             <p class="pricing__note">*prices can vary depending on scope and deadline</p>
-          </div>
+          </details>
 
         </div>
 
@@ -420,6 +441,21 @@
 
       </div>
     </section>
+
+    <script>
+      // Pricing cards ship expanded (open attribute) so desktop — where
+      // they're never collapsible — always renders fully. Forcing a
+      // <details> open via CSS instead of the open attribute proved
+      // unreliable in current Chromium (its internal ::details-content
+      // box keeps content-visibility: hidden regardless of a display
+      // override), so mobile's collapsed-by-default state is set here,
+      // synchronously and this early, to avoid a flash of open content.
+      if (window.matchMedia('(max-width: 768px)').matches) {
+        document.querySelectorAll('.pricing__card').forEach(function (card) {
+          card.removeAttribute('open');
+        });
+      }
+    </script>
 
     <!-- CTA / CONTACT -->
     <section class="cta" id="contact">
