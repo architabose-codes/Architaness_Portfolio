@@ -247,7 +247,7 @@ ul  { list-style: none; }
    HERO
    ========================================= */
 .hero {
-  padding-block: 160px 100px; /* extra top clearance for fixed glass nav */
+  padding-block: 210px 100px; /* extra top clearance for fixed glass nav */
 }
 
 .hero__inner {
@@ -1203,9 +1203,11 @@ ul  { list-style: none; }
   .proj-meta__inner { gap: 28px; }
   .proj-token-table { grid-template-columns: 1fr; }
 
-  .hero { padding-block: 100px 100px; } /* no top nav, extra bottom for bottom-nav */
+  .hero { padding-block: 150px 100px; } /* no top nav, extra bottom for bottom-nav */
   .proj-hero { padding-block: 60px clamp(40px, 6vw, 80px); }
   .footer { padding-bottom: 100px; } /* clear bottom nav */
+
+  .hero-img__container { width: 100%; }
 
   /* These sit directly inside .container, whose own padding-inline is
      already 16px on mobile — their extra 24px horizontal padding was
