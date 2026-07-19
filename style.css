@@ -1304,6 +1304,14 @@ ul  { list-style: none; }
   pointer-events: none;
 }
 
+/* Pages with just a back button and no section tabs (e.g. eWealth) sit
+   at the top-left, in line with the rest of the page's content, rather
+   than centering a single lonely button. */
+.cs-topbar--left {
+  justify-content: flex-start;
+  padding-inline: var(--pad-x);
+}
+
 .cs-topbar__inner {
   display: flex;
   gap: 10px;
@@ -1735,6 +1743,14 @@ ul  { list-style: none; }
 .cs-block img {
   max-width: 100%;
   height: auto;
+  display: block;
+}
+
+.cs-img__video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: none;
+  border-radius: 25px;
   display: block;
 }
 
