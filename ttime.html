@@ -2,6 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <script>
+    // Plays the "zoom in" half of the page transition, before first
+    // paint, using the click-origin the previous page stored. See
+    // assets/page-transition.js for the outgoing half.
+    (function () {
+      var origin = sessionStorage.getItem('pt-origin');
+      if (origin) {
+        sessionStorage.removeItem('pt-origin');
+        var parts = origin.split(',');
+        document.documentElement.style.setProperty('--pt-x', parts[0] + '%');
+        document.documentElement.style.setProperty('--pt-y', parts[1] + '%');
+        document.documentElement.classList.add('pt-entering');
+      }
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>T'time — Archita Bose</title>
   <meta name="description" content="Brand identity, strategy, and app design for T'time — a wellness concept and master's thesis project." />
@@ -272,5 +287,6 @@
   <script src="assets/cs-nav.js"></script>
   <script src="assets/cta-glow.js"></script>
 
+  <script src="assets/page-transition.js"></script>
 </body>
 </html>

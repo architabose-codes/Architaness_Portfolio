@@ -26,6 +26,28 @@
 }
 
 /* =========================================
+   PAGE TRANSITION (iOS-style zoom navigation)
+   The page you land on scales in from the clicked link's position
+   (--pt-x/--pt-y), like an app opening from its icon. assets/page-transition.js
+   records that origin into sessionStorage on click and navigates
+   immediately (no artificial delay — the old page unloading IS the
+   transition out); a tiny inline script in each page's <head> reads it
+   back before first paint and plays this animation. Skipped entirely
+   for reduced-motion users.
+   ========================================= */
+@media (prefers-reduced-motion: no-preference) {
+  html.pt-entering {
+    animation: pt-zoom-in 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
+    transform-origin: var(--pt-x, 50%) var(--pt-y, 50%);
+  }
+}
+
+@keyframes pt-zoom-in {
+  from { transform: scale(0.92); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* =========================================
    RESET
    ========================================= */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
