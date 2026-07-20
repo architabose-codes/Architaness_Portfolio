@@ -2,6 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <script>
+    // Plays the "zoom in" half of the page transition, before first
+    // paint, using the click-origin the previous page stored. See
+    // assets/page-transition.js for the outgoing half.
+    (function () {
+      var origin = sessionStorage.getItem('pt-origin');
+      if (origin) {
+        sessionStorage.removeItem('pt-origin');
+        var parts = origin.split(',');
+        document.documentElement.style.setProperty('--pt-x', parts[0] + '%');
+        document.documentElement.style.setProperty('--pt-y', parts[1] + '%');
+        document.documentElement.classList.add('pt-entering');
+      }
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Archita Bose — Product & Brand Designer</title>
   <meta name="description" content="Archita Bose is a product & brand designer specialising in Luxury, Fintech and SaaS — case studies in brand identity, design systems, and product design." />
@@ -720,5 +735,6 @@
     </a>
   </nav>
 
+  <script src="assets/page-transition.js"></script>
 </body>
 </html>
