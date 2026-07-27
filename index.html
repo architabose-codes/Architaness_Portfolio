@@ -95,28 +95,42 @@
     <!-- HERO -->
     <section class="hero">
       <div class="container hero__inner">
-        <h1 class="hero__headline">
-          Archita<span class="hero__surname"> Bose</span> is a Product <span class="hero__amp">&amp;</span> Brand designer.<br class="hero__break" />
-          She specialises in Luxury, Fintech and SaaS.
-        </h1>
+        <p class="hero__intro" id="heroText">
+          <span class="hero__line">Hi! I'm a product and brand designer.</span><br />
+          <span class="hero__line">I build brands that are distinct and human.</span><br />
+          <span class="hero__midrow" id="heroMidrow">
+            <span class="hero__midrow-col hero__midrow-col--left">
+              <span class="hero__midrow-line">I mix</span>
+              <span class="hero__midrow-line">visuals</span>
+            </span>
+            <span class="hero__imgs">
+              <img src="assets/images for hero/5.png" alt="eWealth app icon" class="hero__img" draggable="false" />
+              <img src="assets/images for hero/4.png" alt="GEN6" class="hero__img" draggable="false" />
+              <img src="assets/images for hero/3.png" alt="The Scent Shop campaign" class="hero__img" draggable="false" />
+              <img src="assets/images for hero/2.png" alt="Isana" class="hero__img" draggable="false" />
+              <img src="assets/images for hero/1.png" alt="The Scent Shop storefront" class="hero__img" draggable="false" />
+            </span>
+            <span class="hero__midrow-col hero__midrow-col--right">
+              <span class="hero__midrow-line">bold</span>
+              <span class="hero__midrow-line">and real</span>
+            </span>
+          </span><br />
+          <span class="hero__line">business strategy to craft experiences that are</span><br />
+          <span class="hero__line">rooted far beyond just product.</span>
+        </p>
         <div class="badge badge--live">
           <img src="assets/dot-green.svg" alt="" class="badge__dot" />
           <span>Available for work</span>
         </div>
       </div>
+      <div class="hero__scroll" aria-hidden="true">
+        <span>Scroll</span>
+        <span class="hero__scroll-arrow">↓</span>
+      </div>
     </section>
 
-    <!-- HERO IMAGE -->
-    <div class="hero-img">
-      <div class="hero-img__container">
-        <video class="hero-img__photo" autoplay muted loop playsinline>
-          <source src="assets/hero-video.mp4" type="video/mp4" />
-        </video>
-      </div>
-    </div>
-
     <!-- SELECTED WORK -->
-    <section class="section work" id="work">
+    <section class="section work reveal" id="work">
       <div class="container">
         <p class="section__eyebrow">SELECTED WORK</p>
         <ul class="work__list">
@@ -319,7 +333,7 @@
     </section>
 
     <!-- DESIGN RESOURCE -->
-    <section class="section resource" id="resource">
+    <section class="section resource reveal" id="resource">
       <div class="container">
         <p class="section__eyebrow">DESIGN RESOURCE</p>
         <div class="resource__inner">
@@ -345,7 +359,7 @@
     </section>
 
     <!-- ABOUT -->
-    <section class="section about" id="about">
+    <section class="section about reveal" id="about">
       <div class="container">
         <p class="section__eyebrow">ABOUT</p>
         <div class="about__inner">
@@ -374,7 +388,7 @@
     </section>
 
     <!-- BUILD WITH ME / PRICING -->
-    <section class="section pricing" id="services">
+    <section class="section pricing reveal" id="services">
       <div class="container">
         <p class="section__eyebrow">BUILD WITH ME</p>
         <div class="pricing__grid">
@@ -488,7 +502,7 @@
     </script>
 
     <!-- CTA / CONTACT -->
-    <section class="cta" id="contact">
+    <section class="cta reveal" id="contact">
       <div class="container">
         <a href="https://buildwitharchita.notion.site/39f97aed00dc800b8ddbd210a1b93b8d?pvs=105" target="_blank" rel="noopener" class="cta__pill">
           <div class="cta__photo-wrap">
@@ -686,6 +700,324 @@
       preview.classList.remove('is-visible');
       cancelAnimationFrame(raf);
     }, { passive: true });
+
+    // Hero images — each image is its own draggable unit and can be
+    // dropped anywhere in the sentence above; the words rearrange
+    // around wherever it lands. Every image tracks a `slot` (which
+    // word-gap it sits before) and an `order` (its position among any
+    // other images sharing that same slot), so images dropped near
+    // each other still render as one grouped row. The one specific
+    // slot between "mix" and "bold" is "canonical" — whenever at least
+    // one image sits there, that region gets a hand-built two-line
+    // layout matching the Figma comp; everywhere else just renders as
+    // one normal flowing line with images inserted inline.
+    (function () {
+      const heroText = document.getElementById('heroText');
+      if (!heroText) return;
+
+      const words = [
+        "Hi!", "I'm", "a", "product", "and", "brand", "designer.",
+        "I", "build", "brands", "that", "are", "distinct", "and", "human.",
+        "I", "mix", "bold", "visuals", "and", "real",
+        "business", "strategy", "to", "craft", "experiences", "that", "are",
+        "rooted", "far", "beyond", "just", "product.",
+      ];
+      const CANONICAL_IMG_INDEX = 17; // between "mix" (16) and "bold" (17)
+
+      // Persisted <img> nodes, grabbed once from the static markup (so
+      // they never reload) and tracked independently from here on.
+      const images = [...heroText.querySelectorAll('.hero__img')].map((el, i) => ({
+        el,
+        slot: CANONICAL_IMG_INDEX,
+        order: i,
+      }));
+
+      function imagesAtSlot(slot) {
+        return images.filter(im => im.slot === slot).sort((a, b) => a.order - b.order);
+      }
+
+      function makeImgGroup(slot) {
+        const wrap = document.createElement('span');
+        wrap.className = 'hero__imgs';
+        imagesAtSlot(slot).forEach(im => wrap.appendChild(im.el));
+        return wrap;
+      }
+
+      function makeWord(idx) {
+        const span = document.createElement('span');
+        span.className = 'hero__word';
+        span.dataset.idx = idx;
+        span.textContent = words[idx];
+        return span;
+      }
+
+      // Appends words[from..to] to target as plain flowing inline content,
+      // dropping in an image group at every slot that currently has one.
+      function fillRun(target, from, to) {
+        for (let i = from; i <= to; i++) {
+          if (imagesAtSlot(i).length) target.appendChild(makeImgGroup(i));
+          target.appendChild(makeWord(i));
+          if (i < to) target.appendChild(document.createTextNode(' '));
+        }
+        if (imagesAtSlot(to + 1).length) target.appendChild(makeImgGroup(to + 1));
+      }
+
+      function makeLine(from, to) {
+        const line = document.createElement('span');
+        line.className = 'hero__line';
+        fillRun(line, from, to);
+        return line;
+      }
+
+      function makeMidrowLine(...idxs) {
+        const line = document.createElement('span');
+        line.className = 'hero__midrow-line';
+        idxs.forEach((idx, i) => {
+          if (i > 0) line.appendChild(document.createTextNode(' '));
+          line.appendChild(makeWord(idx));
+        });
+        return line;
+      }
+
+      // The two-column sandwich needs more horizontal room than a phone
+      // viewport has (left column + images + right column, side by
+      // side); below the existing 768px breakpoint everything just
+      // flows as one normal line instead, canonical slot or not.
+      const isNarrow = () => window.matchMedia('(max-width: 768px)').matches;
+
+      function render() {
+        heroText.innerHTML = '';
+
+        heroText.appendChild(makeLine(0, 6));
+        heroText.appendChild(document.createElement('br'));
+        heroText.appendChild(makeLine(7, 14));
+        heroText.appendChild(document.createElement('br'));
+
+        if (imagesAtSlot(CANONICAL_IMG_INDEX).length && !isNarrow()) {
+          const midrow = document.createElement('span');
+          midrow.className = 'hero__midrow';
+
+          const left = document.createElement('span');
+          left.className = 'hero__midrow-col hero__midrow-col--left';
+          left.append(makeMidrowLine(15, 16), makeMidrowLine(18));
+
+          const right = document.createElement('span');
+          right.className = 'hero__midrow-col hero__midrow-col--right';
+          right.append(makeMidrowLine(17), makeMidrowLine(19, 20));
+
+          midrow.append(left, makeImgGroup(CANONICAL_IMG_INDEX), right);
+          heroText.appendChild(midrow);
+          heroText.appendChild(document.createElement('br'));
+          heroText.appendChild(makeLine(21, 27));
+          heroText.appendChild(document.createElement('br'));
+          heroText.appendChild(makeLine(28, 32));
+        } else {
+          heroText.appendChild(makeLine(15, 32));
+        }
+
+        // Stagger a one-time entrance the first time the hero renders
+        // (page load only) — every word and image fades up in reading
+        // order, spread across ~1s. Later re-renders (dragging, resizing
+        // past the mobile breakpoint) skip this so the sentence doesn't
+        // replay the intro every time it reflows.
+        if (!hasPlayedIntro) {
+          hasPlayedIntro = true;
+          const items = heroText.querySelectorAll('.hero__word, .hero__img');
+          const step = items.length > 1 ? 600 / (items.length - 1) : 0;
+          items.forEach((el, i) => {
+            el.classList.add('hero-enter');
+            el.style.animationDelay = `${Math.round(i * step)}ms`;
+            // Images are persisted nodes moved (not recreated) on every
+            // future render — e.g. when dragged to a new spot — and
+            // re-inserting an element into the DOM restarts any CSS
+            // animation still assigned to it. Strip the class the moment
+            // this one-time entrance finishes so a later drag can't
+            // replay it and flash the image back to invisible.
+            el.addEventListener('animationend', () => {
+              el.classList.remove('hero-enter');
+              el.style.animationDelay = '';
+            }, { once: true });
+          });
+        }
+      }
+
+      let hasPlayedIntro = false;
+
+      // Renumbers each slot's images to clean 0..n integers after a move,
+      // so `order` values don't drift as floats across repeated drags.
+      function normalizeOrders() {
+        const bySlot = new Map();
+        images.forEach(im => {
+          if (!bySlot.has(im.slot)) bySlot.set(im.slot, []);
+          bySlot.get(im.slot).push(im);
+        });
+        bySlot.forEach(list => {
+          list.sort((a, b) => a.order - b.order).forEach((im, i) => { im.order = i; });
+        });
+      }
+
+      // Live drag tracking. Word/image positions are read from the DOM
+      // exactly once per render (`refreshCachedTargets`) and cached; every
+      // pointermove after that is pure arithmetic against those cached
+      // numbers (no getBoundingClientRect calls, so no forced reflow) until
+      // the nearest target actually changes — at that point we update the
+      // model, re-render, and only then take one fresh measurement. This
+      // is what gives the drag its live "text reflows as you move" feel
+      // without paying for a DOM read/write on every single frame.
+      let dragState = null;
+      let naturalCenter = { x: 0, y: 0 };
+      let cachedTargets = [];
+      let lastKey = null;
+      let rafPending = false;
+      let lastEvent = null;
+
+      // Committing a new slot reflows the surrounding words, which moves
+      // the very targets we just measured the cursor against — re-judging
+      // on that same (unmoved) cursor position next frame can immediately
+      // flip the decision back, and repeat, forever. This dead zone breaks
+      // that feedback loop: once a slot commits, the cursor has to travel
+      // a real distance away from that commit point before another
+      // commit is considered, the same hysteresis trick drag-reorder
+      // libraries use to stop swap-thrashing at a boundary.
+      const MIN_MOVE_TO_RECOMMIT = 24; // px
+      let lastCommitX = 0, lastCommitY = 0;
+
+      function refreshCachedTargets(exclude) {
+        cachedTargets = [];
+        images.forEach(im => {
+          if (im === exclude) return;
+          const r = im.el.getBoundingClientRect();
+          cachedTargets.push({ type: 'img', ref: im, cx: r.left + r.width / 2, cy: r.top + r.height / 2, left: r.left, width: r.width });
+        });
+        heroText.querySelectorAll('.hero__word').forEach(w => {
+          const r = w.getBoundingClientRect();
+          cachedTargets.push({ type: 'word', ref: w, cx: r.left + r.width / 2, cy: r.top + r.height / 2, left: r.left, width: r.width });
+        });
+      }
+
+      function findNearestCachedTarget(x, y) {
+        let closest = null, closestDist = Infinity;
+        cachedTargets.forEach(t => {
+          const d = Math.hypot(x - t.cx, y - t.cy);
+          if (d < closestDist) { closestDist = d; closest = t; }
+        });
+        return closest;
+      }
+
+      function deriveSlotOrder(target, x) {
+        const before = x < target.left + target.width / 2;
+        if (target.type === 'img') {
+          const im = target.ref;
+          return { slot: im.slot, order: before ? im.order - 0.5 : im.order + 0.5, key: `img:${images.indexOf(im)}:${before}` };
+        }
+        const idx = Number(target.ref.dataset.idx);
+        const slot = before ? idx : idx + 1;
+        const existing = imagesAtSlot(slot);
+        const order = existing.length ? Math.max(...existing.map(im => im.order)) + 1 : 0;
+        return { slot, order, key: `word:${idx}:${before}` };
+      }
+
+      function processDragFrame() {
+        rafPending = false;
+        if (!dragState || !lastEvent) return;
+        const { clientX, clientY } = lastEvent;
+
+        const movedSinceCommit = Math.hypot(clientX - lastCommitX, clientY - lastCommitY);
+        if (movedSinceCommit > MIN_MOVE_TO_RECOMMIT) {
+          const target = findNearestCachedTarget(clientX, clientY);
+          if (target) {
+            const { slot, order, key } = deriveSlotOrder(target, clientX);
+            if (key !== lastKey) {
+              lastKey = key;
+              lastCommitX = clientX;
+              lastCommitY = clientY;
+              dragState.slot = slot;
+              dragState.order = order;
+              normalizeOrders();
+              dragState.el.style.transform = ''; // clear before measuring its new natural spot
+              render();
+              const r = dragState.el.getBoundingClientRect();
+              naturalCenter = { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+              refreshCachedTargets(dragState);
+            }
+          }
+        }
+
+        dragState.el.style.transform = `translate(${clientX - naturalCenter.x}px, ${clientY - naturalCenter.y}px)`;
+      }
+
+      heroText.addEventListener('pointerdown', e => {
+        const img = e.target.closest('.hero__img');
+        if (!img) return;
+        const state = images.find(im => im.el === img);
+        if (!state) return;
+        dragState = state;
+        lastKey = null;
+        lastCommitX = e.clientX;
+        lastCommitY = e.clientY;
+        img.setPointerCapture(e.pointerId);
+        img.classList.add('is-dragging');
+
+        const r = img.getBoundingClientRect();
+        naturalCenter = { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+        refreshCachedTargets(dragState);
+      });
+
+      window.addEventListener('pointermove', e => {
+        if (!dragState) return;
+        lastEvent = e;
+        if (!rafPending) {
+          rafPending = true;
+          requestAnimationFrame(processDragFrame);
+        }
+      });
+
+      function endDrag() {
+        if (!dragState) return;
+        dragState.el.classList.remove('is-dragging');
+        dragState.el.style.transform = '';
+        dragState = null;
+        lastEvent = null;
+      }
+
+      window.addEventListener('pointerup', endDrag);
+      window.addEventListener('pointercancel', endDrag);
+
+      window.matchMedia('(max-width: 768px)').addEventListener('change', render);
+
+      render();
+    })();
+
+    // Scroll reveal — each `.reveal` section fades/slides into view the
+    // first time it crosses into the viewport, then stops being observed
+    // (a one-time entrance, not a repeating scroll-out/scroll-in effect).
+    (function () {
+      const revealEls = document.querySelectorAll('.reveal');
+      if (!revealEls.length || !('IntersectionObserver' in window)) return;
+
+      const io = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
+
+      revealEls.forEach(el => io.observe(el));
+
+      // Same fix as the project pages (assets/cs-nav.js): images can
+      // still be loading once a section's own fade has finished, so each
+      // gets its own transition tied to its actual `load` event instead
+      // of popping in unanimated.
+      document.querySelectorAll('.reveal img').forEach(img => {
+        if (img.complete) {
+          img.classList.add('is-loaded');
+        } else {
+          img.addEventListener('load', () => img.classList.add('is-loaded'), { once: true });
+          img.addEventListener('error', () => img.classList.add('is-loaded'), { once: true });
+        }
+      });
+    })();
 
     // Nav burger
     const burger = document.getElementById('navBurger');
