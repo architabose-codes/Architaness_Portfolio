@@ -48,6 +48,49 @@
 }
 
 /* =========================================
+   SCROLL REVEAL
+   Each major section fades/slides up into view once, the first time it
+   crosses into the viewport. On the landing page this is the explicit
+   `.reveal` class (see the IntersectionObserver in index.html); on
+   project pages every `.cs-section` gets the same treatment for free
+   except the summary/head section, which is visible on load like the
+   landing page's hero (see the observer in assets/cs-nav.js).
+   Visible-by-default outside the media query so content never depends
+   on JS or motion permission to be readable.
+   ========================================= */
+.reveal,
+.cs-section:not(.cs-section--wide) { opacity: 1; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal,
+  .cs-section:not(.cs-section--wide) {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+  }
+
+  .reveal.is-visible,
+  .cs-section:not(.cs-section--wide).is-visible { opacity: 1; transform: none; }
+
+  /* Several case-study images are multi-megabyte and can still be
+     mid-download when the 0.9s section transition above finishes — the
+     text (no network fetch needed) fades in on schedule, then the image
+     just pops in whenever it eventually loads, since the section's own
+     opacity has nothing left to animate by that point. Each image gets
+     its own fade tied to its actual `load` event (see the .is-loaded
+     class toggled in index.html / assets/cs-nav.js) instead of relying
+     on the section's fixed timer. */
+  .reveal img,
+  .cs-section:not(.cs-section--wide) img {
+    opacity: 0;
+    transition: opacity 0.5s var(--ease);
+  }
+
+  .reveal img.is-loaded,
+  .cs-section:not(.cs-section--wide) img.is-loaded { opacity: 1; }
+}
+
+/* =========================================
    RESET
    ========================================= */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -269,7 +312,40 @@ ul  { list-style: none; }
    HERO
    ========================================= */
 .hero {
-  padding-block: 210px 100px; /* extra top clearance for fixed glass nav */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  padding-block: 60px 100px;
+}
+
+.hero__scroll {
+  position: absolute;
+  bottom: 64px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  white-space: nowrap;
+}
+
+.hero__scroll-arrow { font-size: 14px; line-height: 1; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero__scroll-arrow { animation: hero-scroll-bounce 1.6s ease-in-out infinite; }
+}
+
+@keyframes hero-scroll-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
 }
 
 .hero__inner {
@@ -280,54 +356,106 @@ ul  { list-style: none; }
   text-align: center;
 }
 
-.hero__headline {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: clamp(24px, 3.5vw, 36px);
+.hero__intro {
+  font-family: var(--font-sans);
+  font-size: clamp(22px, 2.8vw, 33.357px);
   font-weight: 400;
-  line-height: 1.1;
+  line-height: 1.05;
   letter-spacing: -0.04em;
-  color: var(--text);
-  max-width: 553px;
+  color: #1e1e1e;
+  max-width: 900px;
 }
 
-.hero__amp {
-  color: var(--pink-accent);
-}
-
-/* =========================================
-   HERO IMAGE
-   ========================================= */
-.hero-img {
-  width: 100%;
-  display: flex;
-  justify-content: center;
+/* The image row's default ("canonical") slot: flanked by a two-line
+   text column on each side so it reads as "I mix [imgs] bold" on one
+   line and "visuals [imgs] and real" on the next, matching the Figma
+   comp exactly. This is a hand-built stand-in for the one specific
+   spot in the sentence — everywhere else the images drop into, the
+   surrounding words just flow as one normal wrapping line instead (see
+   the reflow script below), since no CSS layout can auto-generate this
+   two-column split for an arbitrary drop position. */
+.hero__midrow {
+  display: inline-flex;
   align-items: center;
+  gap: 0.4em;
+  vertical-align: middle;
 }
 
-.hero-img__container {
-  width: 80%;
-  margin-inline: auto;
-  aspect-ratio: 8 / 5;
-  position: relative;
-  overflow: hidden;
-  border-radius: 0;
+.hero__midrow-col {
+  display: flex;
+  flex-direction: column;
+  line-height: inherit;
 }
 
-.hero-img__photo {
-  width: 100%;
-  height: 100%;
+.hero__midrow-col--left { align-items: flex-end; text-align: right; }
+.hero__midrow-col--right { align-items: flex-start; text-align: left; }
+
+.hero__midrow-line { white-space: nowrap; }
+
+/* Sits inline in the running text so the sentence wraps around it
+   naturally at any viewport width — no custom reflow logic needed. */
+.hero__imgs {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.26em;
+  margin-inline: 0.2em;
+  vertical-align: middle;
+}
+
+/* Sized in em off .hero__intro's own font-size (ratio taken from the
+   Figma spec: 65px images / 33.357px text ≈ 1.95em, same 0.26em value
+   for both gap and radius) so they scale as one continuous curve with
+   the fluid text size instead of needing separate breakpoint overrides.
+   Playful drag-to-reorder (see the script in this file): each image can
+   be picked up and dropped at a new position in the row, and the
+   sentence reflows around the new arrangement for free, since it's
+   still just inline content. */
+.hero__img {
+  width: 1.95em;
+  height: 1.95em;
+  border-radius: 0.26em;
   object-fit: cover;
-  object-position: top center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: block;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+
+.hero__img:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+}
+
+.hero__img.is-dragging {
+  position: relative;
+  z-index: 20;
+  cursor: grabbing;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.24);
+  transition: none;
+}
+
+/* One-time hero entrance: each word/image gets this class with its own
+   animation-delay (set in the render() script) so the sentence fades up
+   in reading order on page load. Visible-by-default outside the media
+   query, same pattern as the other reduced-motion-aware animations on
+   this page. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-enter {
+    animation: hero-word-in 0.4s var(--ease) both;
+  }
+}
+
+@keyframes hero-word-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* =========================================
    WORK LIST
    ========================================= */
+.section.work { padding-top: 0; }
+
 .work__list {
 }
 
@@ -384,9 +512,8 @@ ul  { list-style: none; }
 }
 
 .work__title {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 32px;
+  font-family: var(--font-sans);
+  font-size: 24px;
   font-weight: 400;
   line-height: 1.1;
   letter-spacing: -0.04em;
@@ -478,10 +605,9 @@ ul  { list-style: none; }
 }
 
 .resource__title {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 36px;
-  font-weight: 400;
+  font-family: var(--font-sans);
+  font-size: 32px;
+  font-weight: 300;
   line-height: 1.1;
   letter-spacing: -0.04em;
   color: var(--text);
@@ -571,10 +697,9 @@ ul  { list-style: none; }
 }
 
 .about__title {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 36px;
-  font-weight: 400;
+  font-family: var(--font-sans);
+  font-size: 32px;
+  font-weight: 300;
   line-height: 1.1;
   letter-spacing: -0.04em;
   color: var(--text);
@@ -663,8 +788,8 @@ ul  { list-style: none; }
 
 .pricing__custom__title {
   font-family: var(--font-sans);
-  font-weight: 400;
-  font-size: 28px;
+  font-weight: 300;
+  font-size: 32px;
   line-height: 1.2;
   letter-spacing: -0.02em;
   color: var(--text);
@@ -687,15 +812,17 @@ ul  { list-style: none; }
 }
 
 .pricing__currency {
-  font-family: var(--font-serif);
-  font-size: 28px;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 32px;
   line-height: 1.4;
   letter-spacing: -0.02em;
   color: var(--text);
 }
 
 .pricing__amount {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
+  font-weight: 400;
   font-size: 42px;
   line-height: 1.1;
   letter-spacing: -0.02em;
@@ -1217,7 +1344,6 @@ ul  { list-style: none; }
    ========================================= */
 @media (max-width: 1024px) {
   .work__type { display: none; }
-  .hero-img__icon { left: 24px; transform: translateY(-50%); }
   .about__inner { gap: 40px; }
   .about__photo-wrap { width: 280px; }
   .about__photo { height: 340px; }
@@ -1234,11 +1360,6 @@ ul  { list-style: none; }
 
   /* Show bottom nav */
   .bottom-nav { display: flex; }
-
-  /* Let the second hero line flow onto the same line as "designer." */
-  .hero__break { display: none; }
-  .hero__headline { font-size: 36px; }
-  .hero__surname { display: none; }
 
   .about__inner { flex-direction: column; align-items: center; }
   .about__photo-wrap { width: 100%; }
@@ -1267,10 +1388,6 @@ ul  { list-style: none; }
   .work__right { align-self: flex-end; }
   .work__arrow { display: none; }
 
-  .work__title,
-  .resource__title,
-  .about__title { font-size: 36px; }
-
   /* Static preview image (same asset as the desktop hover preview),
      shown between the number and title instead of on hover. */
   .work__mobile-preview { display: block; width: 100%; height: auto; border-radius: 12px; }
@@ -1284,11 +1401,13 @@ ul  { list-style: none; }
   .proj-meta__inner { gap: 28px; }
   .proj-token-table { grid-template-columns: 1fr; }
 
-  .hero { padding-block: 150px 100px; } /* no top nav, extra bottom for bottom-nav */
+  /* Shorter than 100vh on purpose — the sliver of the Work section left
+     visible below the fold is the scroll cue on mobile, replacing the
+     "Scroll" hint used on desktop. */
+  .hero { padding-block: 100px 100px; min-height: 85vh; }
+  .hero__scroll { display: none; }
   .proj-hero { padding-block: 60px clamp(40px, 6vw, 80px); }
   .footer { padding-bottom: 100px; } /* clear bottom nav */
-
-  .hero-img__container { width: 100%; }
 
   /* These sit directly inside .container, whose own padding-inline is
      already 16px on mobile — their extra 24px horizontal padding was
@@ -1463,9 +1582,9 @@ ul  { list-style: none; }
 }
 
 .cs-head__icon {
-  width: 107px;
-  height: 107px;
-  border-radius: 24px;
+  width: 72px;
+  height: 72px;
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1474,6 +1593,13 @@ ul  { list-style: none; }
 }
 
 .cs-head__icon img { width: 58px; height: 58px; display: block; }
+
+/* Badge-style icons (gradient background, no inline style override) show
+   a smaller glyph centered on the colored square — the glyph needs to
+   shrink with the container or it crowds the edges. Full-bleed icons
+   ([style] disables the background entirely) have no visible box to
+   crowd, so they keep their own natural size. */
+.cs-head__icon:not([style]) img { width: 39px; height: 39px; }
 
 .cs-head__text {
   display: flex;
@@ -1486,7 +1612,7 @@ ul  { list-style: none; }
 
 .cs-head__title {
   font-family: var(--font-sans);
-  font-size: clamp(36px, 5vw, 48px);
+  font-size: 32px;
   font-weight: 400;
   line-height: 1.1;
   letter-spacing: -0.02em;
@@ -1640,7 +1766,7 @@ ul  { list-style: none; }
 
 .cs-lead ul li { line-height: 1.6; }
 
-/* Stat row — serif italic numbers */
+/* Stat row — Geist Light numbers */
 .cs-stats {
   display: flex;
   flex-wrap: wrap;
@@ -1657,9 +1783,9 @@ ul  { list-style: none; }
 }
 
 .cs-stat__num {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 48px;
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 36px;
   line-height: 1.1;
   letter-spacing: -0.04em;
   color: #000;
@@ -1719,7 +1845,7 @@ ul  { list-style: none; }
 .cs-blocks {
   display: flex;
   flex-direction: column;
-  gap: 100px;
+  gap: 200px;
   width: 100%;
 }
 
@@ -1912,7 +2038,7 @@ ul  { list-style: none; }
   .cs-grid { grid-template-columns: 1fr; gap: 32px; }
   .cs-lead ul { gap: 24px; padding-left: 24px; }
   .cs-section ul.cs-list { gap: 24px; }
-  .cs-blocks { gap: 64px; }
+  .cs-blocks { gap: 100px; }
   .cs-stats { gap: 24px; justify-content: flex-start; }
   .cs-stat__num { font-size: 32px; }
   .cs-pagenav, .cs-footer { padding-inline: 24px; }

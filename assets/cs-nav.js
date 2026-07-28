@@ -100,3 +100,36 @@ document.addEventListener('DOMContentLoaded', function () {
   }, { rootMargin: '-20% 0px -70% 0px' });
   sections.forEach(s => spy.observe(s));
 });
+
+// Scroll reveal — same one-time fade/slide-up used on the landing page's
+// `.reveal` sections (see index.html), applied here to every `.cs-section`
+// except the summary/head one, which is visible on load like the landing
+// page's hero. Shared across all project pages via this one script.
+document.addEventListener('DOMContentLoaded', function () {
+  const revealEls = document.querySelectorAll('.cs-section:not(.cs-section--wide)');
+  if (!revealEls.length || !('IntersectionObserver' in window)) return;
+
+  const io = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
+
+  revealEls.forEach(el => io.observe(el));
+
+  // Many case-study images are several MB and can still be loading once
+  // the section above has already finished its fade — mark each image
+  // as loaded (or already-complete, for cached ones) so its own CSS
+  // transition (see style.css) fades it in whenever it actually becomes
+  // available, instead of popping in with no animation at all.
+  document.querySelectorAll('.cs-section:not(.cs-section--wide) img').forEach(img => {
+    if (img.complete) {
+      img.classList.add('is-loaded');
+    } else {
+      img.addEventListener('load', () => img.classList.add('is-loaded'), { once: true });
+      img.addEventListener('error', () => img.classList.add('is-loaded'), { once: true });
+    }
+  });
+});
