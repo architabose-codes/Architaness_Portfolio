@@ -55,22 +55,29 @@
    project pages every `.cs-section` gets the same treatment for free
    except the summary/head section, which is visible on load like the
    landing page's hero (see the observer in assets/cs-nav.js).
+   `.cs-block` (each Solution/Process step) is revealed the same way but
+   individually, since those sections run much taller than one screen —
+   without this, the whole section fades in as soon as its top appears
+   and every block below it just sits fully visible, un-animated.
    Visible-by-default outside the media query so content never depends
    on JS or motion permission to be readable.
    ========================================= */
 .reveal,
-.cs-section:not(.cs-section--wide) { opacity: 1; }
+.cs-section:not(.cs-section--wide),
+.cs-block { opacity: 1; }
 
 @media (prefers-reduced-motion: no-preference) {
   .reveal,
-  .cs-section:not(.cs-section--wide) {
+  .cs-section:not(.cs-section--wide),
+  .cs-block {
     opacity: 0;
     transform: translateY(28px);
     transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
   }
 
   .reveal.is-visible,
-  .cs-section:not(.cs-section--wide).is-visible { opacity: 1; transform: none; }
+  .cs-section:not(.cs-section--wide).is-visible,
+  .cs-block.is-visible { opacity: 1; transform: none; }
 
   /* Several case-study images are multi-megabyte and can still be
      mid-download when the 0.9s section transition above finishes — the
@@ -365,6 +372,11 @@ ul  { list-style: none; }
   color: #1e1e1e;
   max-width: 900px;
 }
+
+/* Mobile-only opening sentence ("Hi! I'm Archita..."), rendered by the
+   hero script's flat mobile layout — only ever exists in that markup,
+   so no media-query scoping needed here. */
+.hero__lead { font-weight: 500; }
 
 /* The image row's default ("canonical") slot: flanked by a two-line
    text column on each side so it reads as "I mix [imgs] bold" on one
@@ -685,7 +697,7 @@ ul  { list-style: none; }
   height: 482px;
   object-fit: cover;
   object-position: bottom center;
-  border-radius: 2px;
+  border-radius: 24px;
 }
 
 .about__content {
@@ -1406,6 +1418,7 @@ ul  { list-style: none; }
      "Scroll" hint used on desktop. */
   .hero { padding-block: 100px 100px; min-height: 85vh; }
   .hero__scroll { display: none; }
+  .hero__imgs { padding-bottom: 20px; }
   .proj-hero { padding-block: 60px clamp(40px, 6vw, 80px); }
   .footer { padding-bottom: 100px; } /* clear bottom nav */
 
@@ -1429,7 +1442,7 @@ ul  { list-style: none; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 99px;
+  gap: 200px;
   padding-bottom: 100px;
 }
 
@@ -1579,6 +1592,17 @@ ul  { list-style: none; }
   align-items: center;
   gap: 24px;
   width: min(1124px, 100% - 48px);
+}
+
+/* Groups the head and hero image as one unit so the big 200px .cs-page
+   gap (meant for spacing between distinct top-level sections) doesn't
+   also apply here — this pair keeps its own tighter gap instead. */
+.cs-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 99px;
+  width: 100%;
 }
 
 .cs-head__icon {
@@ -1831,6 +1855,7 @@ ul  { list-style: none; }
 
 /* Process list */
 .cs-section ol {
+  width: 100%;
   padding-left: 30px;
   font-family: var(--font-sans);
   font-size: 20px;
@@ -1884,7 +1909,7 @@ ul  { list-style: none; }
 .cs-img {
   display: flex;
   justify-content: center;
-  width: min(912px, 100% - 48px);
+  width: min(1000px, 100% - 48px);
 }
 
 .cs-img img,
@@ -1986,7 +2011,8 @@ ul  { list-style: none; }
 
 /* --- Mobile --- */
 @media (max-width: 720px) {
-  .cs-page { gap: 64px; }
+  .cs-page { gap: 100px; }
+  .cs-intro { gap: 64px; }
 
   /* Smaller project icon + title on mobile — overrides any per-page inline
      width/height on the icon (e.g. style="width:107px;height:107px") since

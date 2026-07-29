@@ -106,7 +106,11 @@ document.addEventListener('DOMContentLoaded', function () {
 // except the summary/head one, which is visible on load like the landing
 // page's hero. Shared across all project pages via this one script.
 document.addEventListener('DOMContentLoaded', function () {
-  const revealEls = document.querySelectorAll('.cs-section:not(.cs-section--wide)');
+  // Sections reveal as a whole; `.cs-block` (each Solution/Process step)
+  // additionally reveals individually, since those sections run far
+  // taller than one screen — otherwise every block below the first
+  // would already be sitting at full opacity by the time it scrolls in.
+  const revealEls = document.querySelectorAll('.cs-section:not(.cs-section--wide), .cs-block');
   if (!revealEls.length || !('IntersectionObserver' in window)) return;
 
   const io = new IntersectionObserver((entries, observer) => {
