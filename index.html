@@ -96,7 +96,7 @@
     <section class="hero">
       <div class="container hero__inner">
         <p class="hero__intro" id="heroText">
-          <span class="hero__line">Hi! I'm a product and brand designer.</span><br />
+          <span class="hero__line">Hi! I'm Archita, a product and brand designer.</span><br />
           <span class="hero__line">I build brands that are distinct and human.</span><br />
           <span class="hero__midrow" id="heroMidrow">
             <span class="hero__midrow-col hero__midrow-col--left">
@@ -716,13 +716,13 @@
       if (!heroText) return;
 
       const words = [
-        "Hi!", "I'm", "a", "product", "and", "brand", "designer.",
+        "Hi!", "I'm", "Archita,", "a", "product", "and", "brand", "designer.",
         "I", "build", "brands", "that", "are", "distinct", "and", "human.",
         "I", "mix", "bold", "visuals", "and", "real",
         "business", "strategy", "to", "craft", "experiences", "that", "are",
         "rooted", "far", "beyond", "just", "product.",
       ];
-      const CANONICAL_IMG_INDEX = 17; // between "mix" (16) and "bold" (17)
+      const CANONICAL_IMG_INDEX = 18; // between "mix" (17) and "bold" (18)
 
       // Persisted <img> nodes, grabbed once from the static markup (so
       // they never reload) and tracked independently from here on.
@@ -769,6 +769,19 @@
         return line;
       }
 
+      // Plain flowing text, no inline images — used on mobile where the
+      // images already sit in their own standalone row above, so they
+      // shouldn't also break up this sentence mid-word.
+      function makeTextLine(from, to, className) {
+        const line = document.createElement('span');
+        line.className = className || 'hero__line';
+        for (let i = from; i <= to; i++) {
+          line.appendChild(makeWord(i));
+          if (i < to) line.appendChild(document.createTextNode(' '));
+        }
+        return line;
+      }
+
       function makeMidrowLine(...idxs) {
         const line = document.createElement('span');
         line.className = 'hero__midrow-line';
@@ -788,31 +801,50 @@
       function render() {
         heroText.innerHTML = '';
 
-        heroText.appendChild(makeLine(0, 6));
-        heroText.appendChild(document.createElement('br'));
-        heroText.appendChild(makeLine(7, 14));
-        heroText.appendChild(document.createElement('br'));
-
-        if (imagesAtSlot(CANONICAL_IMG_INDEX).length && !isNarrow()) {
-          const midrow = document.createElement('span');
-          midrow.className = 'hero__midrow';
-
-          const left = document.createElement('span');
-          left.className = 'hero__midrow-col hero__midrow-col--left';
-          left.append(makeMidrowLine(15, 16), makeMidrowLine(18));
-
-          const right = document.createElement('span');
-          right.className = 'hero__midrow-col hero__midrow-col--right';
-          right.append(makeMidrowLine(17), makeMidrowLine(19, 20));
-
-          midrow.append(left, makeImgGroup(CANONICAL_IMG_INDEX), right);
-          heroText.appendChild(midrow);
-          heroText.appendChild(document.createElement('br'));
-          heroText.appendChild(makeLine(21, 27));
-          heroText.appendChild(document.createElement('br'));
-          heroText.appendChild(makeLine(28, 32));
+        if (isNarrow()) {
+          // Mobile: all 5 images sit together as a standalone row above
+          // the text, which then reads as one continuous, naturally-
+          // wrapping sentence — no hard break forcing "designer." and "I
+          // build..." onto separate lines, and no room here for the
+          // desktop's sandwich either.
+          const allImages = images.slice().sort((a, b) => a.order - b.order);
+          if (allImages.length) {
+            const row = document.createElement('span');
+            row.className = 'hero__imgs';
+            allImages.forEach(im => row.appendChild(im.el));
+            heroText.appendChild(row);
+            heroText.appendChild(document.createElement('br'));
+          }
+          heroText.appendChild(makeTextLine(0, 7, 'hero__lead'));
+          heroText.appendChild(document.createTextNode(' '));
+          heroText.appendChild(makeTextLine(8, 33));
         } else {
-          heroText.appendChild(makeLine(15, 32));
+          heroText.appendChild(makeLine(0, 7));
+          heroText.appendChild(document.createElement('br'));
+          heroText.appendChild(makeLine(8, 15));
+          heroText.appendChild(document.createElement('br'));
+
+          if (imagesAtSlot(CANONICAL_IMG_INDEX).length) {
+            const midrow = document.createElement('span');
+            midrow.className = 'hero__midrow';
+
+            const left = document.createElement('span');
+            left.className = 'hero__midrow-col hero__midrow-col--left';
+            left.append(makeMidrowLine(16, 17), makeMidrowLine(19));
+
+            const right = document.createElement('span');
+            right.className = 'hero__midrow-col hero__midrow-col--right';
+            right.append(makeMidrowLine(18), makeMidrowLine(20, 21));
+
+            midrow.append(left, makeImgGroup(CANONICAL_IMG_INDEX), right);
+            heroText.appendChild(midrow);
+            heroText.appendChild(document.createElement('br'));
+            heroText.appendChild(makeLine(22, 28));
+            heroText.appendChild(document.createElement('br'));
+            heroText.appendChild(makeLine(29, 33));
+          } else {
+            heroText.appendChild(makeLine(16, 33));
+          }
         }
 
         // Stagger a one-time entrance the first time the hero renders
