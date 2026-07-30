@@ -87,13 +87,13 @@
      its own fade tied to its actual `load` event (see the .is-loaded
      class toggled in index.html / assets/cs-nav.js) instead of relying
      on the section's fixed timer. */
-  .reveal img,
+  .reveal img:not(.about__photo),
   .cs-section:not(.cs-section--wide) img {
     opacity: 0;
     transition: opacity 0.5s var(--ease);
   }
 
-  .reveal img.is-loaded,
+  .reveal img.is-loaded:not(.about__photo),
   .cs-section:not(.cs-section--wide) img.is-loaded { opacity: 1; }
 }
 
@@ -319,40 +319,11 @@ ul  { list-style: none; }
    HERO
    ========================================= */
 .hero {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
-  padding-block: 60px 100px;
-}
-
-.hero__scroll {
-  position: absolute;
-  bottom: 64px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-sans);
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--text-3);
-  white-space: nowrap;
-}
-
-.hero__scroll-arrow { font-size: 14px; line-height: 1; }
-
-@media (prefers-reduced-motion: no-preference) {
-  .hero__scroll-arrow { animation: hero-scroll-bounce 1.6s ease-in-out infinite; }
-}
-
-@keyframes hero-scroll-bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(4px); }
+  padding-block: 220px 120px;
 }
 
 .hero__inner {
@@ -680,51 +651,105 @@ ul  { list-style: none; }
 /* =========================================
    ABOUT
    ========================================= */
+/* Full-bleed: breaks .about__inner out of .container's own padding so
+   the flanking photos can sit near the true viewport edges instead of
+   being squeezed by the container's clamp(24px, 8vw, 120px) gutter —
+   needed once the photos got bigger, since that gutter alone would
+   force the side-by-side layout to stack at far wider viewports than
+   it needs to. */
 .about__inner {
+  position: relative;
+  margin-inline: calc(-1 * var(--pad-x));
   display: flex;
-  align-items: flex-start;
-  gap: 95px;
-  padding: 40px 24px;
+  justify-content: center;
+  align-items: center;
+  min-height: 520px;
+  padding-block: 40px;
 }
 
-.about__photo-wrap {
-  flex-shrink: 0;
-  width: 393px;
-}
-
+/* The photos are pre-rendered with their tilt and rounded corners
+   already baked into the PNG (transparent padding around a rotated
+   square) — no CSS rotation/mask needed, just size and position them. */
 .about__photo {
-  width: 100%;
-  height: 482px;
-  object-fit: cover;
-  object-position: bottom center;
-  border-radius: 24px;
+  position: absolute;
+  top: 50%;
+  width: 320px;
+  height: auto;
 }
+
+.about__photo--left { left: 32px; transform: translateY(-50%); }
+.about__photo--right { right: 32px; transform: translateY(-50%); }
+
+/* Photos slide in from their own side just after the text has already
+   faded in (see the .9s section-level reveal transition — this starts
+   0.3s into that, so it visibly follows rather than arriving together). */
+@media (prefers-reduced-motion: no-preference) {
+  .about__photo {
+    opacity: 0;
+    transition: opacity 0.7s var(--ease) 0.3s, transform 0.7s var(--ease) 0.3s;
+  }
+  .about__photo--left { transform: translateY(-50%) translateX(-40px); }
+  .about__photo--right { transform: translateY(-50%) translateX(40px); }
+  .about.is-visible .about__photo--left,
+  .about.is-visible .about__photo--right {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+}
+
+/* Mobile-only overlapping pair, shown between the location and the
+   body copy in place of the two flanking .about__photo images (see the
+   media query below). */
+.about__imgs-mobile {
+  display: none;
+}
+
+.about__photo-mobile {
+  width: 200px;
+  height: auto;
+}
+
+.about__photo-mobile--b { margin-left: -40px; }
 
 .about__content {
-  flex: 1;
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: 42px;
-  justify-content: center;
+  align-items: center;
+  gap: 28px;
+  max-width: 560px;
+  text-align: center;
 }
 
 .about__title {
   font-family: var(--font-sans);
   font-size: 32px;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.1;
   letter-spacing: -0.04em;
   color: var(--text);
 }
 
-.about__body p {
+.about__location {
   font-size: 16px;
+  color: var(--blue);
+  letter-spacing: -0.02em;
+  margin-top: -12px;
+}
+
+.about__body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.about__body p {
+  font-size: 20px;
   color: var(--text);
   line-height: 1.4;
   letter-spacing: -0.02em;
-  margin-bottom: 0;
 }
-.about__body p + p { margin-top: 16px; }
 
 .about__body a {
   color: var(--blue);
@@ -734,6 +759,7 @@ ul  { list-style: none; }
 .about__tags {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 14px;
 }
 
@@ -1354,11 +1380,19 @@ ul  { list-style: none; }
 /* =========================================
    RESPONSIVE
    ========================================= */
+/* About's side-flanking layout needs more width than it has below
+   this (measured: still overlapping at 1181px, only an 8px gap left
+   at 1280px) — swap to the mobile treatment here instead: photos
+   become the overlapping side-by-side pair between the location and
+   body copy (see .about__imgs-mobile). */
+@media (max-width: 1300px) {
+  .about__inner { min-height: 0; }
+  .about__photo { display: none; }
+  .about__imgs-mobile { display: flex; justify-content: center; align-items: center; }
+}
+
 @media (max-width: 1024px) {
   .work__type { display: none; }
-  .about__inner { gap: 40px; }
-  .about__photo-wrap { width: 280px; }
-  .about__photo { height: 340px; }
   .resource__inner { flex-direction: column; }
   .resource__right { max-width: 100%; }
 }
@@ -1372,10 +1406,6 @@ ul  { list-style: none; }
 
   /* Show bottom nav */
   .bottom-nav { display: flex; }
-
-  .about__inner { flex-direction: column; align-items: center; }
-  .about__photo-wrap { width: 100%; }
-  .about__photo { height: 300px; width: 100%; object-position: center center; }
 
   .pricing__grid { flex-direction: column; }
 
@@ -1414,10 +1444,8 @@ ul  { list-style: none; }
   .proj-token-table { grid-template-columns: 1fr; }
 
   /* Shorter than 100vh on purpose — the sliver of the Work section left
-     visible below the fold is the scroll cue on mobile, replacing the
-     "Scroll" hint used on desktop. */
+     visible below the fold hints there's more to scroll to. */
   .hero { padding-block: 100px 100px; min-height: 85vh; }
-  .hero__scroll { display: none; }
   .hero__imgs { padding-bottom: 20px; }
   .proj-hero { padding-block: 60px clamp(40px, 6vw, 80px); }
   .footer { padding-bottom: 100px; } /* clear bottom nav */
