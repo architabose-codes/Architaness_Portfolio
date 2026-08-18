@@ -2074,12 +2074,22 @@ ul  { list-style: none; }
   .cs-tabs .cs-tabs__label { display: none; }
 
   /* Flat 16px side margins for all case-study content on mobile
-     (was 24px via the "100% - 48px" pattern used across these widths) */
+     (was 24px via the "100% - 48px" pattern used across these widths).
+     .cs-img is included here for pages where it sits directly on
+     .cs-page (a standalone image between sections, e.g. barion-gateway,
+     barion-brand) and so needs this inset itself. */
   .cs-head,
   .cs-hero,
   .cs-section,
   .cs-section--wide,
   .cs-img { width: min(1124px, 100% - 48px); }
+
+  /* On pages where .cs-img instead sits inside a .cs-section (e.g.
+     recipebook, visiontracker), that parent already applied the inset
+     above — giving .cs-img its own "100% - 48px" here would inset it a
+     second time, so it just fills its already-inset parent instead. */
+  .cs-section > .cs-img,
+  .cs-section--wide > .cs-img { width: 100%; max-width: 100%; }
 
   /* Hero/case-study images always fill their container width on mobile,
      overriding any per-image inline max-width (e.g. style="max-width:700px")
